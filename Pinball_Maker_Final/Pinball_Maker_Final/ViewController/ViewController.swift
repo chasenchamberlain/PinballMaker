@@ -112,6 +112,32 @@ class ViewController: GLKViewController {
 
         print("Finger Touch: \((dummy?.location(in: glkView))!)")
         self.model.touchesBegan((dummy?.location(in: glkView))!)
+        
+        if(model.editState)
+        {
+            // Place the component that was selected
+            model.componentSelected = true // DEBUG
+            if(model.componentSelected)
+            {
+                // Depending on the selected component, make a new one proceed to place it.
+                
+                // DEBUG PORTION
+                let component = WallSprite()
+                component.positionX = 0.0
+                component.positionY = -1.0
+                components.append(component)
+                drawComponents()
+                
+            }
+            else // Pick the compoent to be placed
+            {
+                
+            }
+        }
+        else
+        {
+            
+        }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {

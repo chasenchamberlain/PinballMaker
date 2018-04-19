@@ -18,16 +18,20 @@ class Model
     
     // TODO: Variable for different objects forces
     
-    // TODO: Boolean for if the tray is out or not
+    // Boolean for if the tray is out or not
+    var trayOut = false
     
-    // TODO: Boolean for play or edit
+    // Boolean for play or edit, we start in edit mode
+    var editState = true
     
+    // Boolean to show a user selected a component
+    var componentSelected = false
     
     // Method to calculate touch location acording to game area
     func touchLocationToGameArea(_ touchLocation: CGPoint) -> CGPoint {
-        let ratio = (gameAreaHeight / gameAreaHeight)
-        let x = touchLocation.x / ratio
-        let y = (gameAreaHeight) / ratio
+//        let ratio = (gameAreaHeight / gameAreaHeight)
+        let x = touchLocation.x // ratio
+        let y = (touchLocation.y) // ratio
         return CGPoint(x: x, y: y)
         
     }
