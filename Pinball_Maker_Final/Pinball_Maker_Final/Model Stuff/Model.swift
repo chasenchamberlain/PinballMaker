@@ -11,7 +11,7 @@ import GLKit
 class Model
 {
     // TODO: 2 Variable that represents the area of the game screen
-    let gameAreaHeight:CGFloat = (UIScreen.main.bounds.height - 40)
+    let gameAreaHeight: CGFloat = (UIScreen.main.bounds.height)
     let gameAreaWidth: CGFloat =  (UIScreen.main.bounds.width)
     
     // TODO: Variable for gravity
@@ -23,11 +23,11 @@ class Model
     // TODO: Boolean for play or edit
     
     
-    // TODO: Method to calculate touch location acording to game area
+    // Method to calculate touch location acording to game area
     func touchLocationToGameArea(_ touchLocation: CGPoint) -> CGPoint {
         let ratio = (gameAreaHeight / gameAreaHeight)
         let x = touchLocation.x / ratio
-        let y = (gameAreaHeight - touchLocation.y) / ratio
+        let y = (gameAreaHeight) / ratio
         return CGPoint(x: x, y: y)
         
     }
@@ -48,7 +48,7 @@ class Model
     // TODO: fucking snapmap?!?!
     
     func touchesBegan(_ touches: CGPoint){
-        print("\(touchLocationToGameArea(touches))")
+        print("Touch location in game area: \(touchLocationToGameArea(touches))")
     }
     func touchesMoved(_ touches: Set<UITouch>){
         

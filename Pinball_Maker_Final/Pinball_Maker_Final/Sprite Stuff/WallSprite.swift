@@ -36,9 +36,6 @@ class WallSprite: Sprite
     
         
         self.vertices = verts
-        
-        print("\(self.height)")
-        print("\(self.width)")
         print("\(self.boundingBoxWithModelViewMatrix(parenetModelViewMatrix: self.modelViewMatrix))")
     }
 }

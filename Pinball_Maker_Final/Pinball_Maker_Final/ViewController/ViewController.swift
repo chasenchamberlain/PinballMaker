@@ -23,6 +23,10 @@ class ViewController: GLKViewController {
     
     var components = [Sprite]()
     
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //        self.preferredFramesPerSecond = 60
@@ -39,8 +43,13 @@ class ViewController: GLKViewController {
         
 //        let thing = CGRect(x: -85, y: -148, width: 170, height: 296)
 //        let hit = Hitbox(name: "Meh", w: 170, h: 296, x: -85, y: -148)
+        
+        
+        
 
     }
+    
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -101,7 +110,7 @@ class ViewController: GLKViewController {
         print("Frame height: \(glkView.frame.size.height)")
         print("Frame Width: \(glkView.frame.size.width)")
 
-        print("before: \((dummy?.location(in: glkView))!)")
+        print("Finger Touch: \((dummy?.location(in: glkView))!)")
         self.model.touchesBegan((dummy?.location(in: glkView))!)
     }
     
