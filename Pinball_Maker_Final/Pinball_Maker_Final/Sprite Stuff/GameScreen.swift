@@ -19,7 +19,7 @@ class GameScreen: Sprite
     //    let leftWall: Sprite
     //    let topWall: Sprite
     
-    var ball: Sprite
+//    var ball: Sprite
     
     var velocityX: Float = 10
     var velocityY: Float = 10
@@ -31,7 +31,7 @@ class GameScreen: Sprite
         let width: CGFloat = UIScreen.main.bounds.size.width
         self.gameArea = CGSize(width: width, height: height)
         print(gameArea)
-        self.ball = WallSprite()
+//        self.ball = WallSprite()
         super.init(image: UIImage(named: "tech-background")!)
         
         self.positionX = 0.0
@@ -71,10 +71,4 @@ class GameScreen: Sprite
         self.vertices = verts
         
     }
-    
-    func drawComponents()
-    {
-        
-    }
-    
 }

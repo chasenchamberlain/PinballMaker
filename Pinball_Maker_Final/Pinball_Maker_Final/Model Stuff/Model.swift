@@ -8,16 +8,21 @@
 
 import GLKit
 
-// will have the glkview for cordinates, also snap map business
 class Model
 {
-    let glkView: GLKView
-//    var gameScene: GameScreen
-    
-    init(view: GLKView){
-        glkView = view
+    func touchesBegan(){
+        
     }
+    func touchesMoved(){
+        
+    }
+    func touchesEnded(){
+        
+    }
+    
+    
 }
+// will have the glkview for cordinates, also snap map business
 
 // controls all interactions between touches and collisions between the view controller nad the game view
 

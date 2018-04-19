@@ -20,6 +20,7 @@
 		C46F0A482088535E00B93F50 /* WallSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46F0A472088535E00B93F50 /* WallSprite.swift */; };
 		C46F0A4A2088537400B93F50 /* tech-background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C46F0A492088537400B93F50 /* tech-background.jpg */; };
 		C46F0A4C2088537A00B93F50 /* thermostat.png in Resources */ = {isa = PBXBuildFile; fileRef = C46F0A4B2088537A00B93F50 /* thermostat.png */; };
+		C46F0A552088608500B93F50 /* Hitbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46F0A542088608500B93F50 /* Hitbox.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		C46F0A472088535E00B93F50 /* WallSprite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallSprite.swift; sourceTree = "<group>"; };
 		C46F0A492088537400B93F50 /* tech-background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "tech-background.jpg"; sourceTree = "<group>"; };
 		C46F0A4B2088537A00B93F50 /* thermostat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thermostat.png; sourceTree = "<group>"; };
+		C46F0A542088608500B93F50 /* Hitbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hitbox.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,14 +72,15 @@
 		C46F0A2A2088522800B93F50 /* Pinball_Maker_Final */ = {
 			isa = PBXGroup;
 			children = (
-				C46F0A4E208854D000B93F50 /* Main */,
-				C46F0A4F208854DA00B93F50 /* ViewController */,
 				C46F0A4D208854A900B93F50 /* Apple Stuff */,
+				C46F0A372088522900B93F50 /* Info.plist */,
 				C46F0A322088522900B93F50 /* Assets.xcassets */,
 				C46F0A50208854F000B93F50 /* Resources */,
+				C46F0A4E208854D000B93F50 /* Main */,
+				C46F0A4F208854DA00B93F50 /* ViewController */,
 				C46F0A51208854FD00B93F50 /* Model Stuff */,
-				C46F0A532088551100B93F50 /* Shaders */,
 				C46F0A522088550700B93F50 /* Sprite Stuff */,
+				C46F0A532088551100B93F50 /* Shaders */,
 			);
 			path = Pinball_Maker_Final;
 			sourceTree = "<group>";
@@ -87,7 +90,6 @@
 			children = (
 				C46F0A2F2088522800B93F50 /* Main.storyboard */,
 				C46F0A342088522900B93F50 /* LaunchScreen.storyboard */,
-				C46F0A372088522900B93F50 /* Info.plist */,
 			);
 			path = "Apple Stuff";
 			sourceTree = "<group>";
@@ -121,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				C46F0A3D208852C300B93F50 /* Model.swift */,
+				C46F0A542088608500B93F50 /* Hitbox.swift */,
 			);
 			path = "Model Stuff";
 			sourceTree = "<group>";
@@ -222,6 +225,7 @@
 				C46F0A462088534A00B93F50 /* Sprite.swift in Sources */,
 				C46F0A3E208852C300B93F50 /* Model.swift in Sources */,
 				C46F0A482088535E00B93F50 /* WallSprite.swift in Sources */,
+				C46F0A552088608500B93F50 /* Hitbox.swift in Sources */,
 				C46F0A442088533100B93F50 /* GameScreen.swift in Sources */,
 				C46F0A2E2088522800B93F50 /* ViewController.swift in Sources */,
 				C46F0A2C2088522800B93F50 /* AppDelegate.swift in Sources */,

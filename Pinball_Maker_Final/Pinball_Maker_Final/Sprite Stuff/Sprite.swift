@@ -8,7 +8,7 @@
 
 import GLKit
 
-class Sprite {
+final class Sprite {
     private static var program: GLuint = 0
     
     internal var quad: [Float] = []

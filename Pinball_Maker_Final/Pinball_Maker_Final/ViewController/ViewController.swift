@@ -11,12 +11,14 @@ import GLKit
 class ViewController: GLKViewController {
     
     var glkView: GLKView!
-    private var program: GLuint = 0
+//    private var program: GLuint = 0
+    
     //    private var translateX: Float = 0.0
     //    private var translateY: Float = 0.0
     //    private var time: Float = 0.0
+    
     private var model: Model!
-    private var test: GameScreen!
+    var components = [Sprite]()
     
     //    private var model: Model
     
@@ -29,13 +31,10 @@ class ViewController: GLKViewController {
         glkView.context = context!
         EAGLContext.setCurrent(context)
         
-        //        self.model = model.modelOf(of: self.glView)
-        
+        self.model = Model()
+        setup()
         glEnable(GLenum(GL_BLEND))
         glBlendFunc(GLenum(GL_SRC_ALPHA), GLenum(GL_ONE_MINUS_SRC_ALPHA))
-        
-        let img: UIImage = UIImage(named: "tech-background")!
-        test = GameScreen()
     }
     
     override func didReceiveMemoryWarning() {
@@ -52,11 +51,39 @@ class ViewController: GLKViewController {
         glClearColor(1.0, 1.0, 0.0, 1.0)
         glClear(GLbitfield(GL_COLOR_BUFFER_BIT))
         
-        //        update()
-        test.draw()
-        test.ball.draw()
+        update()
+        drawComponents()
     }
     
+    // Draws all the components associated with the view.
+    func drawComponents()
+    {
+        for comp in components
+        {
+            comp.draw()
+        }
+    }
+    
+    // Setups up our GameScene with appropriate walls etc.
+    func setup()
+    {
+        let gameScreenBackground = GameScreen()
+        let rightWall =  WallSprite()
+        components.append(gameScreenBackground)
+        components.append(rightWall)
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.model.touchesBegan()
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.model.touchesMoved()
+    }
+    
+    override func  touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.model.touchesEnded()
+    }
     
 }
 
