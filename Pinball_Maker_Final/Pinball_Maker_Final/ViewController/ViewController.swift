@@ -11,16 +11,17 @@ import GLKit
 class ViewController: GLKViewController {
     
     var glkView: GLKView!
-//    private var program: GLuint = 0
     
     //    private var translateX: Float = 0.0
     //    private var translateY: Float = 0.0
     //    private var time: Float = 0.0
     
-    private var model: Model!
-    var components = [Sprite]()
+    // TODO:  variable for telling us if in edit or play
+    // TODO:  variable for telling us if tray is out when editing
     
-    //    private var model: Model
+    private var model: Model!
+    
+    var components = [Sprite]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,26 +65,44 @@ class ViewController: GLKViewController {
         }
     }
     
+    // MARK: - Intial Setup
     // Setups up our GameScene with appropriate walls etc.
     func setup()
     {
         let gameScreenBackground = GameScreen()
         let rightWall =  WallSprite()
+        
+        // TODO: Left wall
+        // TODO: Top
+        // TODO: Buttons
+        // TODO: plunger
+        // TODO: paddles
+        // TODO: sloping walls to paddles
+        
         components.append(gameScreenBackground)
         components.append(rightWall)
     }
     
+    
+    // TODO:  Method to set quad coridnates for paddles, plunger, and ball.
+    
+    // TODO:  Method to signal to the game the ball fell through the middle
+    
+    // TODO: Undo method to remove last component, ya know for mistakes ya dingus
+    
+    // MARK: - Touches
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.model.touchesBegan()
+        self.model.touchesBegan(touches)
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.model.touchesMoved()
+        self.model.touchesMoved(touches)
     }
     
     override func  touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.model.touchesEnded()
+        self.model.touchesEnded(touches)
     }
+
     
 }
 

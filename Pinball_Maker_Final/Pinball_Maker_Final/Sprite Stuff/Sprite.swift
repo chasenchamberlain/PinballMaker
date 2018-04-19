@@ -8,7 +8,7 @@
 
 import GLKit
 
-final class Sprite {
+class Sprite {
     private static var program: GLuint = 0
     
     internal var quad: [Float] = []
@@ -208,11 +208,11 @@ final class Sprite {
     }
     
     // Touch methods
-    internal func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {}
-    
-    internal func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {}
-    
-    internal func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {}
+//    internal func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {}
+//
+//    internal func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {}
+//
+//    internal func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {}
 }
 
 extension GLKMatrix4 {

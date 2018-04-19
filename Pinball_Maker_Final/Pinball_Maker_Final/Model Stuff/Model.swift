@@ -10,13 +10,42 @@ import GLKit
 
 class Model
 {
-    func touchesBegan(){
+    // TODO: Variable that represents the area of the game screen
+    
+    // TODO: Variable for gravity
+    
+    // TODO: Variable for different objects forces
+    
+    // TODO: Boolean for if the tray is out or not
+    
+    // TODO: Boolean for play or edit
+    
+    
+    // TODO: Method to calculate touch location acording to game area
+    
+    // TODO: Method to assit in pivoting the paddle
+    
+    // TODO: Method to update sprite accoring to its position acording to physics etc
+    
+    // TODO: Maybe same method as above, but a method for updating hitbox
+    
+    // TODO: Large logic method for checking hitbox locations in regards to the ball
+    
+    // TODO: Method to set up scene for playing/after losses this happens also
+    
+    // TODO: Method to set up scene for editing
+    
+    // TODO: Method to slide a tray in and out
+    
+    // TODO: fucking snapmap?!?!
+    
+    func touchesBegan(_ touches: Set<UITouch>){
         
     }
-    func touchesMoved(){
+    func touchesMoved(_ touches: Set<UITouch>){
         
     }
-    func touchesEnded(){
+    func touchesEnded(_ touches: Set<UITouch>){
         
     }
     
