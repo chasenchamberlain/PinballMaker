@@ -36,6 +36,10 @@ class ViewController: GLKViewController {
         setup()
         glEnable(GLenum(GL_BLEND))
         glBlendFunc(GLenum(GL_SRC_ALPHA), GLenum(GL_ONE_MINUS_SRC_ALPHA))
+        
+//        let thing = CGRect(x: -85, y: -148, width: 170, height: 296)
+//        let hit = Hitbox(name: "Meh", w: 170, h: 296, x: -85, y: -148)
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -90,9 +94,15 @@ class ViewController: GLKViewController {
     
     // TODO: Undo method to remove last component, ya know for mistakes ya dingus
     
+    
     // MARK: - Touches
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.model.touchesBegan(touches)
+        let dummy = touches.first
+        print("Frame height: \(glkView.frame.size.height)")
+        print("Frame Width: \(glkView.frame.size.width)")
+
+        print("before: \((dummy?.location(in: glkView))!)")
+        self.model.touchesBegan((dummy?.location(in: glkView))!)
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -101,6 +111,9 @@ class ViewController: GLKViewController {
     
     override func  touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.model.touchesEnded(touches)
+        let touch = touches.first
+        let touchloc = touch?.location(in: glkView)
+//        print("\(touchloc)")
     }
 
     

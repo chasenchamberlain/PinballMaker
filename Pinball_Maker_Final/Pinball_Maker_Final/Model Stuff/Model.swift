@@ -10,7 +10,9 @@ import GLKit
 
 class Model
 {
-    // TODO: Variable that represents the area of the game screen
+    // TODO: 2 Variable that represents the area of the game screen
+    let gameAreaHeight:CGFloat = (UIScreen.main.bounds.height - 40)
+    let gameAreaWidth: CGFloat =  (UIScreen.main.bounds.width)
     
     // TODO: Variable for gravity
     
@@ -22,7 +24,13 @@ class Model
     
     
     // TODO: Method to calculate touch location acording to game area
-    
+    func touchLocationToGameArea(_ touchLocation: CGPoint) -> CGPoint {
+        let ratio = (gameAreaHeight / gameAreaHeight)
+        let x = touchLocation.x / ratio
+        let y = (gameAreaHeight - touchLocation.y) / ratio
+        return CGPoint(x: x, y: y)
+        
+    }
     // TODO: Method to assit in pivoting the paddle
     
     // TODO: Method to update sprite accoring to its position acording to physics etc
@@ -39,8 +47,8 @@ class Model
     
     // TODO: fucking snapmap?!?!
     
-    func touchesBegan(_ touches: Set<UITouch>){
-        
+    func touchesBegan(_ touches: CGPoint){
+        print("\(touchLocationToGameArea(touches))")
     }
     func touchesMoved(_ touches: Set<UITouch>){
         

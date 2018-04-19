@@ -30,33 +30,15 @@ class WallSprite: Sprite
             1.0, 0.0 // texture
         ]
         
-        self.positionX = 0.5
-        self.positionY = -1.0
-        
-        var verts: [Float] = []
-        verts.append(quad[0])
-        verts.append(quad[1])
-        
-        verts.append(quad[8])
-        verts.append(quad[9])
-        
-        verts.append(quad[16])
-        verts.append(quad[17])
-        
-        verts.append(quad[24])
-        verts.append(quad[25])
+        let verts: [Float] = self.getPositionVertices()
+        self.width = 170.0
+        self.height = 296.0
+    
         
         self.vertices = verts
-        
-        //        self.height = self.
         
         print("\(self.height)")
         print("\(self.width)")
         print("\(self.boundingBoxWithModelViewMatrix(parenetModelViewMatrix: self.modelViewMatrix))")
-        
-        self.scaleY = 1
-        self.scaleX = 1
-        
-        //        self.texture =
     }
 }

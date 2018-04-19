@@ -194,10 +194,10 @@ class Sprite {
     internal func boundingBoxWithModelViewMatrix(parenetModelViewMatrix: GLKMatrix4) -> CGRect {
         let modelViewMatrix = GLKMatrix4Multiply(parenetModelViewMatrix, self.modelViewMatrix)
         
-        let preLowerLeft = GLKVector4Make(-self.width / 2, -self.height / 2, 0, 1)
+        let preLowerLeft = GLKVector4Make(self.width, self.height, 0, 1)
         let lowerLeft = GLKMatrix4MultiplyVector4(modelViewMatrix, preLowerLeft)
         
-        let preUpperRight = GLKVector4Make(self.width / 2, self.height / 2, 0, 1)
+        let preUpperRight = GLKVector4Make(self.width, self.height, 0, 1)
         let upperRight = GLKMatrix4MultiplyVector4(modelViewMatrix, preUpperRight)
         
         let boundingBox = CGRect(x: CGFloat(lowerLeft.x),
@@ -207,12 +207,45 @@ class Sprite {
         return boundingBox
     }
     
-    // Touch methods
-//    internal func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {}
-//
-//    internal func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {}
-//
-//    internal func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {}
+    // Gives the position points of quad to assist in calculations of a hitbox
+    public func getPositionVertices() -> [Float] {
+        var verts: [Float] = []
+        if !quad.isEmpty
+        {
+            verts.append(quad[0])
+            verts.append(quad[1])
+            
+            verts.append(quad[8])
+            verts.append(quad[9])
+            
+            verts.append(quad[16])
+            verts.append(quad[17])
+            
+            verts.append(quad[24])
+            verts.append(quad[25])
+            
+        }
+        return verts
+    }
+    
+    // Method to assist in switching textures from the sprite sheet
+    public func setTextureVertices(newTexurePoints: [Float]){
+
+        if !quad.isEmpty
+        {
+            (quad[6]) = newTexurePoints[0]
+            (quad[7]) = newTexurePoints[1]
+            
+            (quad[14]) = newTexurePoints[2]
+            (quad[15]) = newTexurePoints[3]
+            
+            (quad[22]) = newTexurePoints[4]
+            (quad[23]) = newTexurePoints[5]
+            
+            (quad[30]) = newTexurePoints[6]
+            (quad[31]) = newTexurePoints[7]
+        }
+    }
 }
 
 extension GLKMatrix4 {
