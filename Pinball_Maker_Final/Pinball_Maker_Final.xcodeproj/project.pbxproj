@@ -70,22 +70,78 @@
 		C46F0A2A2088522800B93F50 /* Pinball_Maker_Final */ = {
 			isa = PBXGroup;
 			children = (
-				C46F0A2B2088522800B93F50 /* AppDelegate.swift */,
-				C46F0A2D2088522800B93F50 /* ViewController.swift */,
-				C46F0A2F2088522800B93F50 /* Main.storyboard */,
+				C46F0A4E208854D000B93F50 /* Main */,
+				C46F0A4F208854DA00B93F50 /* ViewController */,
+				C46F0A4D208854A900B93F50 /* Apple Stuff */,
 				C46F0A322088522900B93F50 /* Assets.xcassets */,
+				C46F0A50208854F000B93F50 /* Resources */,
+				C46F0A51208854FD00B93F50 /* Model Stuff */,
+				C46F0A532088551100B93F50 /* Shaders */,
+				C46F0A522088550700B93F50 /* Sprite Stuff */,
+			);
+			path = Pinball_Maker_Final;
+			sourceTree = "<group>";
+		};
+		C46F0A4D208854A900B93F50 /* Apple Stuff */ = {
+			isa = PBXGroup;
+			children = (
+				C46F0A2F2088522800B93F50 /* Main.storyboard */,
 				C46F0A342088522900B93F50 /* LaunchScreen.storyboard */,
 				C46F0A372088522900B93F50 /* Info.plist */,
+			);
+			path = "Apple Stuff";
+			sourceTree = "<group>";
+		};
+		C46F0A4E208854D000B93F50 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				C46F0A2B2088522800B93F50 /* AppDelegate.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		C46F0A4F208854DA00B93F50 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C46F0A2D2088522800B93F50 /* ViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		C46F0A50208854F000B93F50 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
 				C46F0A492088537400B93F50 /* tech-background.jpg */,
 				C46F0A4B2088537A00B93F50 /* thermostat.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C46F0A51208854FD00B93F50 /* Model Stuff */ = {
+			isa = PBXGroup;
+			children = (
 				C46F0A3D208852C300B93F50 /* Model.swift */,
-				C46F0A3F208852F100B93F50 /* fragment.glsl */,
-				C46F0A412088531000B93F50 /* vertex.glsl */,
+			);
+			path = "Model Stuff";
+			sourceTree = "<group>";
+		};
+		C46F0A522088550700B93F50 /* Sprite Stuff */ = {
+			isa = PBXGroup;
+			children = (
 				C46F0A432088533100B93F50 /* GameScreen.swift */,
 				C46F0A452088534A00B93F50 /* Sprite.swift */,
 				C46F0A472088535E00B93F50 /* WallSprite.swift */,
 			);
-			path = Pinball_Maker_Final;
+			path = "Sprite Stuff";
+			sourceTree = "<group>";
+		};
+		C46F0A532088551100B93F50 /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				C46F0A3F208852F100B93F50 /* fragment.glsl */,
+				C46F0A412088531000B93F50 /* vertex.glsl */,
+			);
+			path = Shaders;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
