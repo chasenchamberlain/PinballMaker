@@ -168,6 +168,8 @@ class Sprite {
     {
         //        glViewport(bounds.width, y: Glint, width: GLsizei, height: GLsizei) This does something with keeping a square on screen I guess
         
+        //glViewport(0, 0, GLsizei(375 * 2), GLsizei(667 * 2))
+        
         // position
         glVertexAttribPointer(0, 2, GLenum(GL_FLOAT), GLboolean(GL_FALSE), 32, UnsafePointer(quad))
         
@@ -244,6 +246,30 @@ class Sprite {
             
             (quad[30]) = newTexurePoints[6]
             (quad[31]) = newTexurePoints[7]
+        }
+    }
+    
+    public func setQuadVertices(){
+        
+        if !quad.isEmpty
+        {
+            let posI_x = self.width / Float(UIScreen.main.bounds.width)
+            let negI_x = posI_x * -1.0
+            let posI_y = self.height / Float(UIScreen.main.bounds.height)
+            let negI_y = posI_y * -1.0
+            
+            // BR
+            (quad[0]) = negI_x
+            (quad[1]) = negI_y
+            // BL
+            (quad[8]) = posI_x
+            (quad[9]) = negI_y
+            // TR
+            (quad[16]) = negI_x
+            (quad[17]) = posI_y
+            // TL
+            (quad[24]) = posI_x
+            (quad[25]) = posI_y
         }
     }
 }

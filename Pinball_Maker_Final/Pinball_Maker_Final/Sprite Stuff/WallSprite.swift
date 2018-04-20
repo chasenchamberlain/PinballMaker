@@ -31,9 +31,9 @@ class WallSprite: Sprite
         ]
         
         let verts: [Float] = self.getPositionVertices()
-        self.width = 170.0
-        self.height = 296.0
-    
+        self.width = 32.0
+        self.height = 32.0
+        self.setQuadVertices()
         
         self.vertices = verts
         print("\(self.boundingBoxWithModelViewMatrix(parenetModelViewMatrix: self.modelViewMatrix))")

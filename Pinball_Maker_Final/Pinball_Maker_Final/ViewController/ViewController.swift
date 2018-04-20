@@ -43,9 +43,9 @@ class ViewController: GLKViewController {
         
 //        let thing = CGRect(x: -85, y: -148, width: 170, height: 296)
 //        let hit = Hitbox(name: "Meh", w: 170, h: 296, x: -85, y: -148)
-        
-        
-        
+        model.setupTheGrid()
+//        print(model.gameGrid)
+        print("W:\(glkView.frame.size.width/32) H:\(glkView.frame.size.height/32)")
 
     }
     
@@ -84,6 +84,7 @@ class ViewController: GLKViewController {
     {
         let gameScreenBackground = GameScreen()
         let rightWall =  WallSprite()
+        let editPlayButton = StartEditButton()
         
         // TODO: Left wall
         // TODO: Top
@@ -94,6 +95,7 @@ class ViewController: GLKViewController {
         
         components.append(gameScreenBackground)
         components.append(rightWall)
+        components.append(editPlayButton)
     }
     
     
@@ -110,23 +112,68 @@ class ViewController: GLKViewController {
         print("Frame height: \(glkView.frame.size.height)")
         print("Frame Width: \(glkView.frame.size.width)")
 
+        let xy = model.touchLocationToGameArea((dummy?.location(in: glkView))!)
+        
         print("Finger Touch: \((dummy?.location(in: glkView))!)")
         self.model.touchesBegan((dummy?.location(in: glkView))!)
         
         if(model.editState)
         {
+            // Check if the area is already populated with a component, if it is don't put anything there.
+            print("X in Grid:\(Int(xy.x/32))")
+            print("Y in Grid:\(Int(xy.y/32))")
+            
+            
             // Place the component that was selected
             model.componentSelected = true // DEBUG
             if(model.componentSelected)
             {
+                let flooredX = Int(xy.x/32)
+                let flooredY = Int(xy.y/32)
+                print("\(model.gameGrid)")
                 // Depending on the selected component, make a new one proceed to place it.
-                
-                // DEBUG PORTION
-                let component = WallSprite()
-                component.positionX = 0.0
-                component.positionY = -1.0
-                components.append(component)
-                drawComponents()
+                if(model.gameGrid[flooredY][flooredX] == 7)
+                {
+                    let i = Float(flooredX * 32) // location of x tap
+                    let k = Float(flooredY * 32) // location of y tap
+                    let w = Float(glkView.frame.size.width)
+                    let h = Float(glkView.frame.size.height)
+                    
+                    
+                    // START -- DEBUG PORTION
+                    
+                    // x = -1.0 + i * (2.0 / w) + (1.0 / w) = (2.0 * i + 1.0) / w - 1.0
+                    // y = -1.0 + k * (2.0 / h) + (1.0 / h) = (2.0 * k + 1.0) / h - 1.0
+                    
+                    // i = (w / 2)(x + 1)
+                    // k = (h - h * x) / 2
+                    
+                    //                let i = Float(xy.x) // location of tap
+                    //                let k = Float(xy.y) // location of tap
+                    //                let w = Float(glkView.frame.size.width)
+                    //                let h = Float(glkView.frame.size.height)
+                    let component = WallSprite()
+                    
+                    let gridX = (2.0 * i + 1.0) / w - 1.0 //(2.0 * i) / w - 1.0
+                    let gridY = (-2.0 * k + 1.0) / h + 1.0 //(-2.0 * k) / h + 1.0
+                    
+                    component.positionX = gridX
+                    component.positionY = gridY
+                    
+                    print("X in gl: \(gridX)")
+                    print("Y in gl: \(gridY)")
+                    print("GridX:\(model.gridX)")
+                    print("GridY:\(model.gridY)")
+                    print("Pos X: \(component.positionX)")
+                    print("Pos Y: \(component.positionY)")
+                    
+                    //                component.positionX =
+                    //                component.positionY =
+                    
+                    components.append(component)
+                    drawComponents()
+                }
+                // END -- DEBUG PORTION
                 
             }
             else // Pick the compoent to be placed
