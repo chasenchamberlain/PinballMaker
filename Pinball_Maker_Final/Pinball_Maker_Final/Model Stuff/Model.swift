@@ -7,6 +7,7 @@
 //
 
 import GLKit
+import Foundation
 
 class Model
 {
@@ -57,8 +58,8 @@ class Model
     
     // Setup grid dimensions
     func setupGridDimensions(){
-        self.gridX = Int(UIScreen.main.bounds.width / 32)
-        self.gridY = Int(UIScreen.main.bounds.height / 32)
+        self.gridX = Int(ceil(UIScreen.main.bounds.width / 32.0)) + 1
+        self.gridY = Int(ceil(UIScreen.main.bounds.height / 32.0))
     }
     
     // Establish the starting game grid
@@ -73,18 +74,22 @@ class Model
             var row: [Int] = [self.gridX]
             if(yRow == 0 || yRow == 1)
             {
-                row = [Int](repeating: -1, count: self.gridX)
+                row = [Int](repeating: -1, count: self.gridX) // Button area, 2 rows worth.
+            }
+            if(yRow == 2)
+            {
+                row = [Int](repeating: 0, count: self.gridX) // top wall
             }
             else
             {
                 row = [Int](repeating: 7, count: self.gridX)
-                row[0] = 0
+                row[0] = 0 // Setting the left wall
                 
-                if(yRow == 2 || yRow == 3)
+                if(yRow == 3 || yRow == 4)
                 {
                     row[self.gridX - 1] = 0
                 }
-                if(yRow > 3)
+                if(yRow > 4)
                 {
                     row[self.gridX - 3] = 0
                     row[self.gridX - 1] = 0
@@ -130,7 +135,6 @@ class Model
     }
     
     func touchesBegan(_ touches: CGPoint){
-        print("Touch location in game area: \(touchLocationToGameArea(touches))")
     }
     func touchesMoved(_ touches: Set<UITouch>){
         

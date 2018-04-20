@@ -43,9 +43,7 @@ class ViewController: GLKViewController {
         
 //        let thing = CGRect(x: -85, y: -148, width: 170, height: 296)
 //        let hit = Hitbox(name: "Meh", w: 170, h: 296, x: -85, y: -148)
-        model.setupTheGrid()
-//        print(model.gameGrid)
-        print("W:\(glkView.frame.size.width/32) H:\(glkView.frame.size.height/32)")
+        print("2D ARRAY DIMENSIONS --> W:\(glkView.frame.size.width/32) H:\(glkView.frame.size.height/32)")
 
     }
     
@@ -82,9 +80,9 @@ class ViewController: GLKViewController {
     // Setups up our GameScene with appropriate walls etc.
     func setup()
     {
+        model.setupTheGrid()
         let gameScreenBackground = GameScreen()
-        let rightWall =  WallSprite()
-        let editPlayButton = StartEditButton()
+//        let rightWall =  WallSprite()
         
         // TODO: Left wall
         // TODO: Top
@@ -94,8 +92,9 @@ class ViewController: GLKViewController {
         // TODO: sloping walls to paddles
         
         components.append(gameScreenBackground)
-        components.append(rightWall)
-        components.append(editPlayButton)
+//        components.append(rightWall)
+        
+        debugDrawGrid()
     }
     
     
@@ -109,31 +108,35 @@ class ViewController: GLKViewController {
     // MARK: - Touches
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let dummy = touches.first
-        print("Frame height: \(glkView.frame.size.height)")
-        print("Frame Width: \(glkView.frame.size.width)")
+        print("Frame height: \(glkView.frame.size.height) Frame Width: \(glkView.frame.size.width)")
 
         let xy = model.touchLocationToGameArea((dummy?.location(in: glkView))!)
+        print("Raw finger touch: \(xy) calculated in the model")
         
-        print("Finger Touch: \((dummy?.location(in: glkView))!)")
         self.model.touchesBegan((dummy?.location(in: glkView))!)
         
         if(model.editState)
         {
             // Check if the area is already populated with a component, if it is don't put anything there.
-            print("X in Grid:\(Int(xy.x/32))")
-            print("Y in Grid:\(Int(xy.y/32))")
+            print("X in Grid before round: \((xy.x/32.0))")
+            print("Y in Grid before round: \((xy.y/32.0))")
             
             
             // Place the component that was selected
             model.componentSelected = true // DEBUG
             if(model.componentSelected)
             {
-                let flooredX = Int(xy.x/32)
-                let flooredY = Int(xy.y/32)
-                print("\(model.gameGrid)")
+                let flooredX = round(xy.x/32)
+                let flooredY = round(xy.y/32)
+                
+                print("FloordX: \(flooredX) FlooredY: \(flooredY)")
                 // Depending on the selected component, make a new one proceed to place it.
-                if(model.gameGrid[flooredY][flooredX] == 7)
+                if(model.gameGrid[Int(flooredY)][Int(flooredX)] == 7)
                 {
+                    print("--- DRAWING A NEW COMPONENT ---")
+                    print(" ")
+                    print("Number in 2D array :: \(model.gameGrid[Int(flooredY)][Int(flooredX)])")
+                    print(" ")
                     let i = Float(flooredX * 32) // location of x tap
                     let k = Float(flooredY * 32) // location of y tap
                     let w = Float(glkView.frame.size.width)
@@ -157,24 +160,39 @@ class ViewController: GLKViewController {
                     let gridX = (2.0 * i + 1.0) / w - 1.0 //(2.0 * i) / w - 1.0
                     let gridY = (-2.0 * k + 1.0) / h + 1.0 //(-2.0 * k) / h + 1.0
                     
-                    component.positionX = gridX
-                    component.positionY = gridY
+                    component.positionX = gridX //+ 0.1
+                    component.positionY = gridY //+ 0.01
                     
                     print("X in gl: \(gridX)")
                     print("Y in gl: \(gridY)")
-                    print("GridX:\(model.gridX)")
-                    print("GridY:\(model.gridY)")
+                    print("GridX: \(model.gridX)")
+                    print("GridY: \(model.gridY)")
                     print("Pos X: \(component.positionX)")
                     print("Pos Y: \(component.positionY)")
                     
-                    //                component.positionX =
-                    //                component.positionY =
+                    // component.positionX =
+                    // component.positionY =
                     
                     components.append(component)
                     drawComponents()
                 }
                 // END -- DEBUG PORTION
-                
+                else
+                {
+                    print(" ")
+                    print(" --- DIDN'T DRAW A NEW COMPONENT ---")
+                    print(" ")
+                    print("Number in 2D array :: \(model.gameGrid[Int(flooredY)][Int(flooredX)])")
+                    
+                    let i = Float(flooredX * 32) // location of x tap
+                    let k = Float(flooredY * 32) // location of y tap
+                    let w = Float(glkView.frame.size.width)
+                    let h = Float(glkView.frame.size.height)
+                    let gridX = (2.0 * i + 1.0) / w - 1.0 //(2.0 * i) / w - 1.0
+                    let gridY = (-2.0 * k + 1.0) / h + 1.0 //(-2.0 * k) / h + 1.0
+                    print("X in gl: \(gridX)")
+                    print("Y in gl: \(gridY)")
+                }
             }
             else // Pick the compoent to be placed
             {
@@ -196,6 +214,34 @@ class ViewController: GLKViewController {
         let touch = touches.first
         let touchloc = touch?.location(in: glkView)
 //        print("\(touchloc)")
+    }
+    
+    func debugDrawGrid()
+    {
+        for y in 0 ..< model.gameGrid.count
+        {
+            for x in 0 ..< model.gameGrid[y].count
+            {
+                if(model.gameGrid[y][x] == 7)
+                {
+                    let component = WallSprite()
+                    let i = Float(x * 32) // location of x tap
+                    let k = Float(y * 32) // location of y tap
+                    let w = Float(glkView.frame.size.width)
+                    let h = Float(glkView.frame.size.height)
+                    
+                    let gridX = (2.0 * i + 1.0) / w - 1.0  //(2.0 * i) / w - 1.0
+                    let gridY = (-2.0 * k + 1.0) / h + 1.0 //(-2.0 * k) / h + 1.0
+                    print("X in gl: \(gridX)")
+                    print("Y in gl: \(gridY)")
+                    component.positionX = gridX
+                    component.positionY = gridY + -0.05
+                    components.append(component)
+                }
+            }
+        }
+        let editPlayButton = StartEditButton()
+        components.append(editPlayButton)
     }
 
     

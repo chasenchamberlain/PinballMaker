@@ -30,7 +30,6 @@ class GameScreen: Sprite
         let height: CGFloat = UIScreen.main.bounds.size.height - 40
         let width: CGFloat = UIScreen.main.bounds.size.width
         self.gameArea = CGSize(width: width, height: height)
-        print(gameArea)
 //        self.ball = WallSprite()
         super.init(image: UIImage(named: "tech-background")!)
         

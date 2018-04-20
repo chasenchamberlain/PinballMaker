@@ -36,6 +36,6 @@ class WallSprite: Sprite
         self.setQuadVertices()
         
         self.vertices = verts
-        print("\(self.boundingBoxWithModelViewMatrix(parenetModelViewMatrix: self.modelViewMatrix))")
+        print(" ") // helps readability
     }
 }
