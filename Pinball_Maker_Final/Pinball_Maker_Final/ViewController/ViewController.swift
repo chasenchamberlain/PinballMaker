@@ -211,8 +211,8 @@ class ViewController: GLKViewController {
     
     override func  touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.model.touchesEnded(touches)
-        let touch = touches.first
-        let touchloc = touch?.location(in: glkView)
+//        let touch = touches.first
+//        let touchloc = touch?.location(in: glkView)
 //        print("\(touchloc)")
     }
     
@@ -232,9 +232,9 @@ class ViewController: GLKViewController {
                     
                     let gridX = (2.0 * i + 1.0) / w - 1.0  //(2.0 * i) / w - 1.0
                     let gridY = (-2.0 * k + 1.0) / h + 1.0 //(-2.0 * k) / h + 1.0
-                    print("X in gl: \(gridX)")
-                    print("Y in gl: \(gridY)")
-                    component.positionX = gridX
+//                    print("X in gl: \(gridX)")
+//                    print("Y in gl: \(gridY)")
+                    component.positionX = gridX + 0.05
                     component.positionY = gridY + -0.05
                     components.append(component)
                 }

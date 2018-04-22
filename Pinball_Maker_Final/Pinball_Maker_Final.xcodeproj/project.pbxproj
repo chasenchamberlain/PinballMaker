@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C4526F58208978C5004656B2 /* StartEditButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4526F57208978C5004656B2 /* StartEditButton.swift */; };
+		C4526F5A208C1744004656B2 /* Framed_Sprites.png in Resources */ = {isa = PBXBuildFile; fileRef = C4526F59208C1743004656B2 /* Framed_Sprites.png */; };
 		C46F0A2C2088522800B93F50 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46F0A2B2088522800B93F50 /* AppDelegate.swift */; };
 		C46F0A2E2088522800B93F50 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46F0A2D2088522800B93F50 /* ViewController.swift */; };
 		C46F0A312088522800B93F50 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C46F0A2F2088522800B93F50 /* Main.storyboard */; };
@@ -26,6 +27,7 @@
 
 /* Begin PBXFileReference section */
 		C4526F57208978C5004656B2 /* StartEditButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartEditButton.swift; sourceTree = "<group>"; };
+		C4526F59208C1743004656B2 /* Framed_Sprites.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Framed_Sprites.png; path = ../../../Framed_Sprites.png; sourceTree = "<group>"; };
 		C46F0A282088522800B93F50 /* Pinball_Maker_Final.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pinball_Maker_Final.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C46F0A2B2088522800B93F50 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C46F0A2D2088522800B93F50 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 			children = (
 				C46F0A492088537400B93F50 /* tech-background.jpg */,
 				C46F0A4B2088537A00B93F50 /* thermostat.png */,
+				C4526F59208C1743004656B2 /* Framed_Sprites.png */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -213,6 +216,7 @@
 				C46F0A332088522900B93F50 /* Assets.xcassets in Resources */,
 				C46F0A312088522800B93F50 /* Main.storyboard in Resources */,
 				C46F0A422088531000B93F50 /* vertex.glsl in Resources */,
+				C4526F5A208C1744004656B2 /* Framed_Sprites.png in Resources */,
 				C46F0A4A2088537400B93F50 /* tech-background.jpg in Resources */,
 				C46F0A4C2088537A00B93F50 /* thermostat.png in Resources */,
 			);
