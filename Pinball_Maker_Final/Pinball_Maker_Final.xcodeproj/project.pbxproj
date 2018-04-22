@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C4526F58208978C5004656B2 /* StartEditButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4526F57208978C5004656B2 /* StartEditButton.swift */; };
 		C4526F5A208C1744004656B2 /* Framed_Sprites.png in Resources */ = {isa = PBXBuildFile; fileRef = C4526F59208C1743004656B2 /* Framed_Sprites.png */; };
+		C4526F5C208C2FD0004656B2 /* Tray.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4526F5B208C2FD0004656B2 /* Tray.swift */; };
 		C46F0A2C2088522800B93F50 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46F0A2B2088522800B93F50 /* AppDelegate.swift */; };
 		C46F0A2E2088522800B93F50 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46F0A2D2088522800B93F50 /* ViewController.swift */; };
 		C46F0A312088522800B93F50 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C46F0A2F2088522800B93F50 /* Main.storyboard */; };
@@ -28,6 +29,7 @@
 /* Begin PBXFileReference section */
 		C4526F57208978C5004656B2 /* StartEditButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartEditButton.swift; sourceTree = "<group>"; };
 		C4526F59208C1743004656B2 /* Framed_Sprites.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Framed_Sprites.png; path = ../../../Framed_Sprites.png; sourceTree = "<group>"; };
+		C4526F5B208C2FD0004656B2 /* Tray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tray.swift; sourceTree = "<group>"; };
 		C46F0A282088522800B93F50 /* Pinball_Maker_Final.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pinball_Maker_Final.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C46F0A2B2088522800B93F50 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C46F0A2D2088522800B93F50 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 				C46F0A452088534A00B93F50 /* Sprite.swift */,
 				C46F0A472088535E00B93F50 /* WallSprite.swift */,
 				C4526F57208978C5004656B2 /* StartEditButton.swift */,
+				C4526F5B208C2FD0004656B2 /* Tray.swift */,
 			);
 			path = "Sprite Stuff";
 			sourceTree = "<group>";
@@ -232,6 +235,7 @@
 				C4526F58208978C5004656B2 /* StartEditButton.swift in Sources */,
 				C46F0A462088534A00B93F50 /* Sprite.swift in Sources */,
 				C46F0A3E208852C300B93F50 /* Model.swift in Sources */,
+				C4526F5C208C2FD0004656B2 /* Tray.swift in Sources */,
 				C46F0A482088535E00B93F50 /* WallSprite.swift in Sources */,
 				C46F0A552088608500B93F50 /* Hitbox.swift in Sources */,
 				C46F0A442088533100B93F50 /* GameScreen.swift in Sources */,

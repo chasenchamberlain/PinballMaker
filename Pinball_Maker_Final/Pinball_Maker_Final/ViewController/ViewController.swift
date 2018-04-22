@@ -21,6 +21,9 @@ class ViewController: GLKViewController {
     
     private var model: Model!
     
+    let trayAreaTouch: CGRect = CGRect(x: Int(UIScreen.main.bounds.width - 46), y: 0, width: 46, height: Int(UIScreen.main.bounds.height))
+    var tray: Tray!
+    
     var components = [Sprite]()
     
     override var prefersStatusBarHidden: Bool {
@@ -37,6 +40,7 @@ class ViewController: GLKViewController {
         EAGLContext.setCurrent(context)
         
         self.model = Model()
+        self.tray = Tray()
         setup()
         glEnable(GLenum(GL_BLEND))
         glBlendFunc(GLenum(GL_SRC_ALPHA), GLenum(GL_ONE_MINUS_SRC_ALPHA))
@@ -55,8 +59,28 @@ class ViewController: GLKViewController {
     }
     
     func update() {
-        //        test.positionX -= 0.002
-        //        test.positionY -= 0.0002
+        if(model.editState)
+        {
+            if(model.trayOut) // Tray is moving out
+            {
+                if(tray.X > 0) // move it to the middle of the screen
+                {
+                    self.tray.positionX = tray.positionX - 0.05
+                }
+            }
+            else // Tray is moving back
+            {
+                if(tray.X < 0.8)
+                {
+                    self.tray.positionX = tray.positionX + 0.05
+                }
+            }
+        }
+        else
+        {
+            // fill me with stuff
+        }
+        
     }
     
     override func glkView(_ view: GLKView, drawIn rect: CGRect) {
@@ -91,10 +115,15 @@ class ViewController: GLKViewController {
         // TODO: paddles
         // TODO: sloping walls to paddles
         
-        components.append(gameScreenBackground)
+//        components.append(gameScreenBackgroundFloat(UIScreen.main.bounds.height))
 //        components.append(rightWall)
         
         debugDrawGrid()
+        
+        if(model.editState)
+        {
+            components.append(tray)
+        }
     }
     
     
@@ -121,6 +150,18 @@ class ViewController: GLKViewController {
             print("X in Grid before round: \((xy.x/32.0))")
             print("Y in Grid before round: \((xy.y/32.0))")
             
+            if(trayAreaTouch.contains((dummy?.location(in: glkView))!))
+            {
+                print("TRAY TOUCHED")
+                if(model.trayOut)
+                {
+                    model.trayOut = false
+                }
+                else
+                {
+                    model.trayOut = true
+                }
+            }
             
             // Place the component that was selected
             model.componentSelected = true // DEBUG
@@ -160,8 +201,8 @@ class ViewController: GLKViewController {
                     let gridX = (2.0 * i + 1.0) / w - 1.0 //(2.0 * i) / w - 1.0
                     let gridY = (-2.0 * k + 1.0) / h + 1.0 //(-2.0 * k) / h + 1.0
                     
-                    component.positionX = gridX //+ 0.1
-                    component.positionY = gridY //+ 0.01
+                    component.positionX = gridX + -0.035
+                    component.positionY = gridY + -0.055
                     
                     print("X in gl: \(gridX)")
                     print("Y in gl: \(gridY)")
@@ -222,7 +263,7 @@ class ViewController: GLKViewController {
         {
             for x in 0 ..< model.gameGrid[y].count
             {
-                if(model.gameGrid[y][x] == 7)
+                if(model.gameGrid[y][x] == 0)
                 {
                     let component = WallSprite()
                     let i = Float(x * 32) // location of x tap
@@ -234,8 +275,8 @@ class ViewController: GLKViewController {
                     let gridY = (-2.0 * k + 1.0) / h + 1.0 //(-2.0 * k) / h + 1.0
 //                    print("X in gl: \(gridX)")
 //                    print("Y in gl: \(gridY)")
-                    component.positionX = gridX + 0.05
-                    component.positionY = gridY + -0.05
+                    component.positionX = gridX + -0.035
+                    component.positionY = gridY + -0.055
                     components.append(component)
                 }
             }

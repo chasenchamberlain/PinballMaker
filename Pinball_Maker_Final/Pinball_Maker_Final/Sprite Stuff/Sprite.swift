@@ -46,11 +46,12 @@ class Sprite {
     
     internal var texture: GLKTextureInfo?
     
-    let image: UIImage
+    var image: UIImage
     
-    init(image: UIImage)
+    init()
     {
-        self.image = image
+        self.image = UIImage(named: "Framed_Sprites")!
+        
         //        self.name = name
         texture = try? GLKTextureLoader.texture(with: self.image.cgImage!, options: nil)
         computeVolumn()
@@ -231,21 +232,35 @@ class Sprite {
     }
     
     // Method to assist in switching textures from the sprite sheet
-    public func setTextureVertices(newTexurePoints: [Float]){
+    public func setTextureVertices(x: Float, y: Float, w: Float, h: Float){
 
+        let textureSizeX: Float = 736.0
+        let textureSizeY: Float = 32.0
+        let adjustedX: Float = x/textureSizeX
+        let adjustedY: Float = y/textureSizeY
+        var newH = h
+        if h == textureSizeY
+        {
+            newH = 0.0
+        }
+        
         if !quad.isEmpty
         {
-            (quad[6]) = newTexurePoints[0]
-            (quad[7]) = newTexurePoints[1]
+            // TL
+            (quad[6]) = adjustedX
+            (quad[7]) = 1.0
             
-            (quad[14]) = newTexurePoints[2]
-            (quad[15]) = newTexurePoints[3]
+            // TR
+            (quad[14]) = adjustedX + w/textureSizeX
+            (quad[15]) = 1.0
             
-            (quad[22]) = newTexurePoints[4]
-            (quad[23]) = newTexurePoints[5]
+            // BL
+            (quad[22]) = adjustedX
+            (quad[23]) = newH/textureSizeY
             
-            (quad[30]) = newTexurePoints[6]
-            (quad[31]) = newTexurePoints[7]
+            // BR
+            (quad[30]) = adjustedX + w/textureSizeX
+            (quad[31]) = newH/textureSizeY
         }
     }
     

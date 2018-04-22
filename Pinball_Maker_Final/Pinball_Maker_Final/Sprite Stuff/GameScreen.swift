@@ -10,7 +10,7 @@ import GLKit
 
 class GameScreen: Sprite
 {
-    let gameArea: CGSize
+    var gameArea: CGSize
     
     //    let leftPaddle: Sprite
     //    let rightPaddle: Sprite
@@ -26,12 +26,15 @@ class GameScreen: Sprite
     
     // editing = false is play, editing = true is editing
     var editing: Bool = false
-    init() {
-        let height: CGFloat = UIScreen.main.bounds.size.height - 40
+    override init() {
+        let height: CGFloat = UIScreen.main.bounds.size.height - 64
         let width: CGFloat = UIScreen.main.bounds.size.width
         self.gameArea = CGSize(width: width, height: height)
+        super.init()
+        self.image = UIImage(named: "tech-background")!
+        self.texture = try? GLKTextureLoader.texture(with: self.image.cgImage!, options: nil)
 //        self.ball = WallSprite()
-        super.init(image: UIImage(named: "tech-background")!)
+//        super.init(image: UIImage(named: "tech-background")!)
         
         self.positionX = 0.0
         self.positionY = 0.0

@@ -10,8 +10,9 @@ import GLKit
 
 class WallSprite: Sprite
 {
-    init() {
-        super.init(image: UIImage(named: "thermostat")!)
+    override init() {
+        super.init()
+//        super.init(image: UIImage(named: "thermostat")!)
         self.quad = [
             0.0, 0.0,
             1.0, 0.0, 1.0, 0.0, // color
@@ -19,7 +20,7 @@ class WallSprite: Sprite
             
             0.5, 0.0,
             1.0, 0.0, 1.0, 0.0,
-            1.0, 1.0, // texture
+            Float(32.0/736.0), Float(32.0/736.0), // texture
             
             0.0, 0.5,
             1.0, 0.0, 1.0, 0.0,
@@ -27,13 +28,20 @@ class WallSprite: Sprite
             
             0.5, 0.5,
             1.0, 0.0, 1.0, 0.0,
-            1.0, 0.0 // texture
+            Float(32.0/736.0), Float(32.0/736.0) // texture
         ]
-        
         let verts: [Float] = self.getPositionVertices()
         self.width = 32.0
         self.height = 32.0
         self.setQuadVertices()
+        // 736 Width, 32 Height
+        
+        self.setTextureVertices(x: 0, y: 0, w: 32, h: 32)
+//        self.setTextureVertices(newTexurePoints: [
+//            0.0, 1.0,
+//            Float(736.0/32.0), Float(736.0/32.0),
+//            0.0, 0.0,
+//            Float(736.0/32.0), Float(736.0/32.0)])
         
         self.vertices = verts
         print(" ") // helps readability

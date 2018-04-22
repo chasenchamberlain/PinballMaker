@@ -76,7 +76,7 @@ class Model
             {
                 row = [Int](repeating: -1, count: self.gridX) // Button area, 2 rows worth.
             }
-            if(yRow == 2)
+            else if(yRow == 2)
             {
                 row = [Int](repeating: 0, count: self.gridX) // top wall
             }

@@ -10,8 +10,9 @@ import GLKit
 
 class StartEditButton: Sprite {
     
-    init(){
-        super.init(image: UIImage(named: "thermostat")!)
+    override init(){
+//        super.init(image: UIImage(named: "thermostat")!)
+        super.init()
         self.quad = [
             -1.0, -1.0, // BR
             1.0, 0.0, 1.0, 0.0, // color
@@ -38,6 +39,8 @@ class StartEditButton: Sprite {
         
         self.positionX = -0.85
         self.positionY = 0.9
+        
+        self.setTextureVertices(x: 355.0, y: 0.0, w: 16.0, h: 16.0)
         
         self.vertices = verts
     }
