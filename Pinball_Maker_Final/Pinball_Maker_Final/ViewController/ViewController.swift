@@ -23,6 +23,9 @@ class ViewController: GLKViewController {
     
     let trayAreaTouch: CGRect = CGRect(x: Int(UIScreen.main.bounds.width - 46), y: 0, width: 46, height: Int(UIScreen.main.bounds.height))
     var tray: Tray!
+    var playButton: PlayButton!
+    var editButton: EditButton!
+    var undoButton: UndoButton!
     
     var components = [Sprite]()
     
@@ -41,6 +44,9 @@ class ViewController: GLKViewController {
         
         self.model = Model()
         self.tray = Tray()
+        self.playButton = PlayButton()
+        self.editButton = EditButton()
+        self.undoButton = UndoButton()
         setup()
         glEnable(GLenum(GL_BLEND))
         glBlendFunc(GLenum(GL_SRC_ALPHA), GLenum(GL_ONE_MINUS_SRC_ALPHA))
@@ -107,7 +113,7 @@ class ViewController: GLKViewController {
         model.setupTheGrid()
         let gameScreenBackground = GameScreen()
 //        let rightWall =  WallSprite()
-        
+        components.append(gameScreenBackground)
         // TODO: Left wall
         // TODO: Top
         // TODO: Buttons
@@ -119,7 +125,13 @@ class ViewController: GLKViewController {
 //        components.append(rightWall)
         
         debugDrawGrid()
-        
+
+        components.append(playButton)
+        components.append(editButton)
+        components.append(undoButton)
+//        editButton.switchTextures()
+//        playButton.switchTextures()
+
         if(model.editState)
         {
             components.append(tray)
@@ -281,8 +293,6 @@ class ViewController: GLKViewController {
                 }
             }
         }
-        let editPlayButton = StartEditButton()
-        components.append(editPlayButton)
     }
 
     

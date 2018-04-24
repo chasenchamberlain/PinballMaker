@@ -237,23 +237,29 @@ class Sprite {
 
         let textureSizeX: Float = 736.0
         let textureSizeY: Float = 32.0
+//        let addedY = y + h
         let adjustedX: Float = x/textureSizeX
-        let adjustedY: Float = y/textureSizeY
+        var adjustedY: Float = (y+h)/textureSizeY
+        if(y+h != textureSizeY)
+        {
+            adjustedY = y/textureSizeY
+        }
         var newH = h
         if h == textureSizeY
         {
             newH = 0.0
         }
         
+        
         if !quad.isEmpty
         {
             // TL
             (quad[6]) = adjustedX
-            (quad[7]) = 1.0
+            (quad[7]) = adjustedY
             
             // TR
             (quad[14]) = adjustedX + w/textureSizeX
-            (quad[15]) = 1.0
+            (quad[15]) = adjustedY
             
             // BL
             (quad[22]) = adjustedX

@@ -1,5 +1,5 @@
 //
-//  StartEditButton.swift
+//  EditButton.swift
 //  Pinball_Maker_Final
 //
 //  Created by Chasen Chamberlain on 4/19/18.
@@ -8,10 +8,11 @@
 
 import GLKit
 
-class StartEditButton: Sprite {
+class EditButton: Sprite {
+    
+    var green: Bool = true
     
     override init(){
-//        super.init(image: UIImage(named: "thermostat")!)
         super.init()
         self.quad = [
             -1.0, -1.0, // BR
@@ -22,7 +23,7 @@ class StartEditButton: Sprite {
             1.0, 0.0, 1.0, 0.0,
             1.0, 1.0, // texture TR
             
-           -1.0, 1.0, // TR
+            -1.0, 1.0, // TR
             1.0, 0.0, 1.0, 0.0,
             0.0, 0.0, // texture BL
             
@@ -34,14 +35,27 @@ class StartEditButton: Sprite {
         let verts: [Float] = self.getPositionVertices()
         self.width = 64.0
         self.height = 64.0
-
+        
         self.setQuadVertices()
         
-        self.positionX = -0.85
+        self.positionX = -0.505
         self.positionY = 0.9
         
-        self.setTextureVertices(x: 355.0, y: 0.0, w: 16.0, h: 16.0)
+        self.setTextureVertices(x: 387.0, y: 16.0, w: 16.0, h: 16.0)
         
         self.vertices = verts
+    }
+    
+    func switchTextures(){
+        if(green)
+        {
+            self.setTextureVertices(x: 387.0, y: 0.0, w: 16.0, h: 16.0)
+            green = false
+        }
+        else
+        {
+            self.setTextureVertices(x: 387.0, y: 16.0, w: 16.0, h: 16.0)
+            green = true
+        }
     }
 }
