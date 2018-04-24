@@ -36,7 +36,7 @@ class Tray: Sprite {
         self.height = Float(UIScreen.main.bounds.height - 64.0)
 //        self.setQuadVertices()
         
-        self.setTextureVertices(x: 595, y: 0, w: 32, h: 32)
+        self.setTextureVertices(x: 0, y: 0, w: 32, h: 32)
     }
     
     // Moves the tray around.

@@ -73,9 +73,13 @@ class ViewController: GLKViewController {
                 {
                     self.tray.moveTrayInOrOut(direction: "out")
                 }
-                else
+                else if(!model.displayTray)
                 {
                     // draw the components to check from and trigger something to let the controller know they can select a component
+                    model.displayTray = true
+                    
+                    // function to put components on the tray
+                    self.drawComponentsOnTray()
                 }
             }
             else // Tray is moving back
@@ -83,6 +87,11 @@ class ViewController: GLKViewController {
                 if(self.tray.X <= 0.8)
                 {
                     self.tray.moveTrayInOrOut(direction: "in")
+                }
+                if(model.displayTray)
+                {
+                    self.undrawDrawComponentsOnTray()
+                    model.displayTray = false
                 }
             }
         }
@@ -94,7 +103,7 @@ class ViewController: GLKViewController {
     }
     
     override func glkView(_ view: GLKView, drawIn rect: CGRect) {
-        glClearColor(1.0, 1.0, 0.0, 1.0)
+        glClearColor(0.0, 0.0, 0.0, 1.0)
         glClear(GLbitfield(GL_COLOR_BUFFER_BIT))
         
         update()
@@ -270,6 +279,47 @@ class ViewController: GLKViewController {
 //        let touch = touches.first
 //        let touchloc = touch?.location(in: glkView)
 //        print("\(touchloc)")
+    }
+    
+    func drawComponentsOnTray()
+    {
+        var add: Float = 0.5
+        
+        let floats: [[Float]] = [
+        [116, 0, 32, 32],
+        [148, 0, 32, 32],
+        [180, 0, 16, 32],
+        [403, 1, 32, 29],
+        [595, 0, 16, 16]
+        ]
+        for i in 0 ..< 5
+        {
+            let test = TrayComponent()
+            components.append(test)
+            test.positionX = 0.5
+            test.positionY = add
+            add -= 0.3
+            if(i == 2)
+            {
+                test.width = 16.0
+                test.height = 32.0 * 2.0
+            }
+            if(i == 3)
+            {
+                test.width = 32.0
+                test.height = 29.0
+            }
+            test.setTextureVertices(x: floats[i][0], y: floats[i][1], w: floats[i][2], h: floats[i][3])
+        }
+
+    }
+    
+    func undrawDrawComponentsOnTray()
+    {
+        for _ in 0 ..< 5
+        {
+            components.removeLast()
+        }
     }
     
     func debugDrawGrid()

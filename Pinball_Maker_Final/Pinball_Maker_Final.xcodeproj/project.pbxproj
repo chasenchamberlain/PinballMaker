@@ -26,6 +26,7 @@
 		C46F0A4A2088537400B93F50 /* tech-background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C46F0A492088537400B93F50 /* tech-background.jpg */; };
 		C46F0A4C2088537A00B93F50 /* thermostat.png in Resources */ = {isa = PBXBuildFile; fileRef = C46F0A4B2088537A00B93F50 /* thermostat.png */; };
 		C46F0A552088608500B93F50 /* Hitbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46F0A542088608500B93F50 /* Hitbox.swift */; };
+		C48CDD32208F0EB800A57FAD /* TrayComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48CDD31208F0EB800A57FAD /* TrayComponent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		C46F0A492088537400B93F50 /* tech-background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "tech-background.jpg"; sourceTree = "<group>"; };
 		C46F0A4B2088537A00B93F50 /* thermostat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thermostat.png; sourceTree = "<group>"; };
 		C46F0A542088608500B93F50 /* Hitbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hitbox.swift; sourceTree = "<group>"; };
+		C48CDD31208F0EB800A57FAD /* TrayComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrayComponent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +151,7 @@
 				C42B973F208EEC59003A1FD2 /* EditButton.swift */,
 				C42B9741208EFB1F003A1FD2 /* UndoButton.swift */,
 				C4526F5B208C2FD0004656B2 /* Tray.swift */,
+				C48CDD31208F0EB800A57FAD /* TrayComponent.swift */,
 			);
 			path = "Sprite Stuff";
 			sourceTree = "<group>";
@@ -243,6 +246,7 @@
 				C46F0A3E208852C300B93F50 /* Model.swift in Sources */,
 				C4526F5C208C2FD0004656B2 /* Tray.swift in Sources */,
 				C46F0A482088535E00B93F50 /* WallSprite.swift in Sources */,
+				C48CDD32208F0EB800A57FAD /* TrayComponent.swift in Sources */,
 				C42B9740208EEC59003A1FD2 /* EditButton.swift in Sources */,
 				C46F0A552088608500B93F50 /* Hitbox.swift in Sources */,
 				C46F0A442088533100B93F50 /* GameScreen.swift in Sources */,

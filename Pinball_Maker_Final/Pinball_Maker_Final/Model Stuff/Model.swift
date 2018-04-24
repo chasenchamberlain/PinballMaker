@@ -29,6 +29,9 @@ class Model
     // Boolean for if the tray is out or not
     var trayOut = false
     
+    // Boolean for to display components on the tray or not
+    var displayTray = false
+    
     // Boolean for play or edit, we start in edit mode
     var editState = true
     
