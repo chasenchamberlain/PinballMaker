@@ -142,8 +142,8 @@
 		C46F0A522088550700B93F50 /* Sprite Stuff */ = {
 			isa = PBXGroup;
 			children = (
-				C46F0A432088533100B93F50 /* GameScreen.swift */,
 				C46F0A452088534A00B93F50 /* Sprite.swift */,
+				C46F0A432088533100B93F50 /* GameScreen.swift */,
 				C46F0A472088535E00B93F50 /* WallSprite.swift */,
 				C4526F57208978C5004656B2 /* PlayButton.swift */,
 				C42B973F208EEC59003A1FD2 /* EditButton.swift */,

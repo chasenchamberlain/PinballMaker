@@ -16,7 +16,7 @@ class Tray: Sprite {
         super.init()
         
         self.quad = [
-            self.X, -1.0, // BR
+            0.8, -1.0, // BR
             1.0, 0.0, 1.0, 0.0, // color
             0.0, 1.0, // texture TL
             
@@ -24,7 +24,7 @@ class Tray: Sprite {
             1.0, 0.0, 1.0, 0.0,
             1.0, 1.0, // texture TR
             
-            self.X, 0.8, // TR
+            0.8, 0.8, // TR
             1.0, 0.0, 1.0, 0.0,
             0.0, 0.0, // texture BL
             
@@ -37,6 +37,23 @@ class Tray: Sprite {
 //        self.setQuadVertices()
         
         self.setTextureVertices(x: 595, y: 0, w: 32, h: 32)
+    }
+    
+    // Moves the tray around.
+    func moveTrayInOrOut(direction: String)
+    {
+        if(direction == "out")
+        {
+            self.X = self.X - 0.1
+            self.quad[0] = self.X
+            self.quad[16] = self.X
+        }
+        else
+        {
+            self.X = self.X + 0.1
+            self.quad[0] = self.X
+            self.quad[16] = self.X
+        }
     }
     
     

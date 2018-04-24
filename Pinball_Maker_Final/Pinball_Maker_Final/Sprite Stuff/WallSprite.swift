@@ -34,14 +34,9 @@ class WallSprite: Sprite
         self.width = 32.0
         self.height = 32.0
         self.setQuadVertices()
-        // 736 Width, 32 Height
         
         self.setTextureVertices(x: 0, y: 0, w: 32, h: 32)
-//        self.setTextureVertices(newTexurePoints: [
-//            0.0, 1.0,
-//            Float(736.0/32.0), Float(736.0/32.0),
-//            0.0, 0.0,
-//            Float(736.0/32.0), Float(736.0/32.0)])
+
         
         self.vertices = verts
         print(" ") // helps readability

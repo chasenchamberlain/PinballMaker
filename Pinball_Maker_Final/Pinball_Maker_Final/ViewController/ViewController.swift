@@ -21,7 +21,7 @@ class ViewController: GLKViewController {
     
     private var model: Model!
     
-    let trayAreaTouch: CGRect = CGRect(x: Int(UIScreen.main.bounds.width - 46), y: 0, width: 46, height: Int(UIScreen.main.bounds.height))
+    let trayAreaTouch: CGRect = CGRect(x: Int(UIScreen.main.bounds.width - 46), y: 64, width: 46, height: Int(UIScreen.main.bounds.height - 64))
     var tray: Tray!
     var playButton: PlayButton!
     var editButton: EditButton!
@@ -69,16 +69,20 @@ class ViewController: GLKViewController {
         {
             if(model.trayOut) // Tray is moving out
             {
-                if(tray.X > 0) // move it to the middle of the screen
+                if(self.tray.X > 0 ) // move it to the middle of the screen
                 {
-                    self.tray.positionX = tray.positionX - 0.05
+                    self.tray.moveTrayInOrOut(direction: "out")
+                }
+                else
+                {
+                    // draw the components to check from and trigger something to let the controller know they can select a component
                 }
             }
             else // Tray is moving back
             {
-                if(tray.X < 0.8)
+                if(self.tray.X <= 0.8)
                 {
-                    self.tray.positionX = tray.positionX + 0.05
+                    self.tray.moveTrayInOrOut(direction: "in")
                 }
             }
         }
@@ -114,27 +118,20 @@ class ViewController: GLKViewController {
         let gameScreenBackground = GameScreen()
 //        let rightWall =  WallSprite()
         components.append(gameScreenBackground)
-        // TODO: Left wall
-        // TODO: Top
-        // TODO: Buttons
-        // TODO: plunger
-        // TODO: paddles
-        // TODO: sloping walls to paddles
+
         
 //        components.append(gameScreenBackgroundFloat(UIScreen.main.bounds.height))
 //        components.append(rightWall)
         
         debugDrawGrid()
+        components.append(tray)
 
         components.append(playButton)
         components.append(editButton)
         components.append(undoButton)
-//        editButton.switchTextures()
-//        playButton.switchTextures()
-
         if(model.editState)
         {
-            components.append(tray)
+            //components.append(tray)
         }
     }
     
@@ -162,21 +159,27 @@ class ViewController: GLKViewController {
             print("X in Grid before round: \((xy.x/32.0))")
             print("Y in Grid before round: \((xy.y/32.0))")
             
+            
+            // This is the tray sliding in and out stuff.
             if(trayAreaTouch.contains((dummy?.location(in: glkView))!))
             {
-                print("TRAY TOUCHED")
                 if(model.trayOut)
                 {
                     model.trayOut = false
                 }
                 else
                 {
+                    print("TRAY TOUCHED")
                     model.trayOut = true
                 }
             }
+            else if(model.trayOut)
+            {
+                model.trayOut = false
+            }
             
             // Place the component that was selected
-            model.componentSelected = true // DEBUG
+//            model.componentSelected = true // DEBUG
             if(model.componentSelected)
             {
                 let flooredX = round(xy.x/32)
@@ -252,7 +255,7 @@ class ViewController: GLKViewController {
                 
             }
         }
-        else
+        else // play mode time to shoot balls around
         {
             
         }
