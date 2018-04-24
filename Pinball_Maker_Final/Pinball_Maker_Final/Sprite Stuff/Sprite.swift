@@ -186,7 +186,8 @@ class Sprite {
         
         // This matrix call is meant to make things more efficent
         glUniformMatrix4fv(glGetUniformLocation(Sprite.program, "modelView"), 1, 0, modelViewMatrix.array)
-        
+        glTexParameterf(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MAG_FILTER), GLfloat(GL_NEAREST));
+
         if let texture = texture {
             glBindTexture(GLenum(GL_TEXTURE_2D), texture.name)
         }
