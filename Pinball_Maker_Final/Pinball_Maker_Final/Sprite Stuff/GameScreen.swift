@@ -31,8 +31,8 @@ class GameScreen: Sprite
         let width: CGFloat = UIScreen.main.bounds.size.width
         self.gameArea = CGSize(width: width, height: height)
         super.init()
-        self.image = UIImage(named: "tech-background")!
-        self.texture = try? GLKTextureLoader.texture(with: self.image.cgImage!, options: nil)
+//        self.image = UIImage(named: "tech-background")!
+//        self.texture = try? GLKTextureLoader.texture(with: self.image.cgImage!, options: nil)
 //        self.ball = WallSprite()
 //        super.init(image: UIImage(named: "tech-background")!)
         

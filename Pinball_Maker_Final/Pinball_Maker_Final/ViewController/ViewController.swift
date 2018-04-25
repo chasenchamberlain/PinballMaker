@@ -16,9 +16,6 @@ class ViewController: GLKViewController {
     //    private var translateY: Float = 0.0
     //    private var time: Float = 0.0
     
-    // TODO:  variable for telling us if in edit or play
-    // TODO:  variable for telling us if tray is out when editing
-    
     private var model: Model!
     
     let trayAreaTouch: CGRect = CGRect(x: Int(UIScreen.main.bounds.width - 46), y: 64, width: 46, height: Int(UIScreen.main.bounds.height - 64))
@@ -126,7 +123,7 @@ class ViewController: GLKViewController {
         model.setupTheGrid()
         let gameScreenBackground = GameScreen()
 //        let rightWall =  WallSprite()
-        components.append(gameScreenBackground)
+//        components.append(gameScreenBackground)
 
         
 //        components.append(gameScreenBackgroundFloat(UIScreen.main.bounds.height))
@@ -135,9 +132,9 @@ class ViewController: GLKViewController {
         debugDrawGrid()
         components.append(tray)
 
-        components.append(playButton)
-        components.append(editButton)
-        components.append(undoButton)
+//        components.append(playButton)
+//        components.append(editButton)
+//        components.append(undoButton)
         if(model.editState)
         {
             //components.append(tray)
@@ -168,6 +165,8 @@ class ViewController: GLKViewController {
             print("X in Grid before round: \((xy.x/32.0))")
             print("Y in Grid before round: \((xy.y/32.0))")
             
+//            var t = CGAffineTransform(scaleX: 1.0 / UIScreen.main.bounds.width, y: 1.0 / UIScreen.main.bounds.height);
+//            var unitRect = UIScreen.main.bounds.applying(t);
             
             // This is the tray sliding in and out stuff.
             if(trayAreaTouch.contains((dummy?.location(in: glkView))!))
@@ -185,6 +184,25 @@ class ViewController: GLKViewController {
             else if(model.trayOut)
             {
                 model.trayOut = false
+            }
+ 
+            if(self.playButton.hitbox.contains((dummy?.location(in: glkView))!))
+            {
+                print(" ")
+                print(" -------- HIT DAT PLAY BUTTON BOOOI -------- ")
+                print(" ")
+            }
+            if(self.editButton.hitbox.contains((dummy?.location(in: glkView))!))
+            {
+                print(" ")
+                print(" -------- HIT DAT EDIT BUTTON BOOOI -------- ")
+                print(" ")
+            }
+            if(self.undoButton.hitbox.contains((dummy?.location(in: glkView))!))
+            {
+                print(" ")
+                print(" -------- HIT DAT UNDO BUTTON BOOOI -------- ")
+                print(" ")
             }
             
             // Place the component that was selected
@@ -283,7 +301,7 @@ class ViewController: GLKViewController {
     
     func drawComponentsOnTray()
     {
-        var add: Float = 0.5
+        var add: Float = 0.59
         
         let floats: [[Float]] = [
         [116, 0, 32, 32],
@@ -298,7 +316,7 @@ class ViewController: GLKViewController {
             components.append(test)
             test.positionX = 0.5
             test.positionY = add
-            add -= 0.3
+            add -= 0.34
             if(i == 2)
             {
                 test.width = 16.0
@@ -335,13 +353,78 @@ class ViewController: GLKViewController {
                     let k = Float(y * 32) // location of y tap
                     let w = Float(glkView.frame.size.width)
                     let h = Float(glkView.frame.size.height)
-                    
+
                     let gridX = (2.0 * i + 1.0) / w - 1.0  //(2.0 * i) / w - 1.0
                     let gridY = (-2.0 * k + 1.0) / h + 1.0 //(-2.0 * k) / h + 1.0
 //                    print("X in gl: \(gridX)")
 //                    print("Y in gl: \(gridY)")
-                    component.positionX = gridX + -0.035
-                    component.positionY = gridY + -0.055
+                    component.positionX = gridX + 0.05
+                    component.positionY = gridY + -0.05
+                    components.append(component)
+                }
+                if(model.gameGrid[y][x] == 8) // play button
+                {
+//                    let component = PlayButton()
+                    let i = Float(x * 32) // location of x tap
+                    let k = Float(y * 32) // location of y tap
+                    let w = Float(glkView.frame.size.width)
+                    let h = Float(glkView.frame.size.height)
+                    
+                    let gridX = (2.0 * i + 1.0) / w - 1.0  //(2.0 * i) / w - 1.0
+                    let gridY = (-2.0 * k + 1.0) / h + 1.0 //(-2.0 * k) / h + 1.0
+                    //                    print("X in gl: \(gridX)")
+                    //                    print("Y in gl: \(gridY)")
+                    playButton.positionX = gridX
+                    playButton.positionY = gridY
+                    components.append(playButton)
+                }
+                if(model.gameGrid[y][x] == 9) // edit button
+                {
+//                    let component = EditButton()
+                    let i = Float(x * 32) // location of x tap
+                    let k = Float(y * 32) // location of y tap
+                    let w = Float(glkView.frame.size.width)
+                    let h = Float(glkView.frame.size.height)
+                    
+                    let gridX = (2.0 * i + 1.0) / w - 1.0  //(2.0 * i) / w - 1.0
+                    let gridY = (-2.0 * k + 1.0) / h + 1.0 //(-2.0 * k) / h + 1.0
+                    //                    print("X in gl: \(gridX)")
+                    //                    print("Y in gl: \(gridY)")
+                    editButton.positionX = gridX
+                    editButton.positionY = gridY
+                    components.append(editButton)
+                }
+                if(model.gameGrid[y][x] == 10) // undo button
+                {
+//                    let component = un()
+                    let i = Float(x * 32) // location of x tap
+                    let k = Float(y * 32) // location of y tap
+                    let w = Float(glkView.frame.size.width)
+                    let h = Float(glkView.frame.size.height)
+                    
+                    let gridX = (2.0 * i + 1.0) / w - 1.0  //(2.0 * i) / w - 1.0
+                    let gridY = (-2.0 * k + 1.0) / h + 1.0 //(-2.0 * k) / h + 1.0
+                    //                    print("X in gl: \(gridX)")
+                    //                    print("Y in gl: \(gridY)")
+                    undoButton.positionX = gridX
+                    undoButton.positionY = gridY
+                    components.append(undoButton)
+                }
+                if(model.gameGrid[y][x] == 7 )//|| model.gameGrid[y][x] == 0)
+                {
+                    let component = WallSprite()
+                    component.setTextureVertices(x: 627, y: 0, w: 32, h: 32)
+                    let i = Float(x * 32) // location of x tap
+                    let k = Float(y * 32) // location of y tap
+                    let w = Float(glkView.frame.size.width)
+                    let h = Float(glkView.frame.size.height)
+
+                    let gridX = (2.0 * i + 1.0) / w - 1.0  //(2.0 * i) / w - 1.0
+                    let gridY = (-2.0 * k + 1.0) / h + 1.0 //(-2.0 * k) / h + 1.0
+                    //                    print("X in gl: \(gridX)")
+                    //                    print("Y in gl: \(gridY)")
+                    component.positionX = gridX + 0.05
+                    component.positionY = gridY + -0.05
                     components.append(component)
                 }
             }

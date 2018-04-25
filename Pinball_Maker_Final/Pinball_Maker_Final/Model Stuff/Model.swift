@@ -74,16 +74,19 @@ class Model
         var yRow = 0
         while(yRow < self.gridY)
         {
-            var row: [Int] = [self.gridX]
-            if(yRow == 0 || yRow == 1)
+            var row: [Int] = [Int](repeating: -1, count: self.gridX)
+            if(yRow == 1 )
             {
-                row = [Int](repeating: -1, count: self.gridX) // Button area, 2 rows worth.
+//                row = [Int](repeating: -1, count: self.gridX) // Button area, 2 rows worth.
+                row[1] = 8
+                row[3] = 9
+                row[self.gridX - 3] = 10
             }
             else if(yRow == 2)
             {
                 row = [Int](repeating: 0, count: self.gridX) // top wall
             }
-            else
+            else if(yRow > 2)
             {
                 row = [Int](repeating: 7, count: self.gridX)
                 row[0] = 0 // Setting the left wall
@@ -94,8 +97,8 @@ class Model
                 }
                 if(yRow > 4)
                 {
-                    row[self.gridX - 3] = 0
-                    row[self.gridX - 1] = 0
+                    row[self.gridX - 4] = 0
+                    row[self.gridX - 2] = 0
                 }
                 
                 if(yRow == self.gridY - 3)

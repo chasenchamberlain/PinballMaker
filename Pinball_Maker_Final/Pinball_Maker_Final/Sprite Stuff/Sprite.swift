@@ -30,6 +30,8 @@ class Sprite {
     internal var width: Float = 0.0
     internal var height: Float = 0.0
     
+    var hitbox: CGRect = CGRect()
+    
     var vertices: [Float] = []
     
     var modelViewMatrix: GLKMatrix4 {
@@ -280,19 +282,38 @@ class Sprite {
             let posI_y = self.height / Float(UIScreen.main.bounds.height)
             let negI_y = posI_y * -1.0
             
-            // BR
+            // BL
             (quad[0]) = negI_x
             (quad[1]) = negI_y
-            // BL
+            // BR
             (quad[8]) = posI_x
             (quad[9]) = negI_y
-            // TR
+            // TL
             (quad[16]) = negI_x
             (quad[17]) = posI_y
-            // TL
+            // TR
             (quad[24]) = posI_x
             (quad[25]) = posI_y
         }
+    }
+    
+    public func setHitbox(x: CGFloat, y: CGFloat){
+        // xPix = (w / 2)(x + 1)  OR xPix = 1/2 (w x + w - 1)
+        // yPix = (h - h * x) / 2 OR yPix = 1/2 (h y + h - 1) OR 1/2 (h (-y) + h + 1)
+        
+//        let part1Width = (Float(UIScreen.main.bounds.width) * self.positionX)
+//        let xPix = (part1Width + (Float(UIScreen.main.bounds.width) - 1.0)) / 4
+
+//        let part2Height = (Float(UIScreen.main.bounds.height)) * (-1.0 * self.positionY)
+//        let yPix = (part2Height + (Float(UIScreen.main.bounds.height) + 1.0)) / 4
+        
+//        let xPix = ((Float(UIScreen.main.bounds.width) / self.width) * self.positionX) / 2
+//        let yPix = (Float(UIScreen.main.bounds.height) / self.height  * self.positionY) / 2
+
+//        let xPix = (self.positionX + 1) * ((Float(UIScreen.main.bounds.width)/2))
+//        let yPix = (self.positionY + 1) * ((Float(UIScreen.main.bounds.height)/2))
+        
+        self.hitbox = CGRect(x: x, y: y, width: CGFloat(self.width), height: CGFloat(self.height))
     }
 }
 

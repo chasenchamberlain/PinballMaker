@@ -44,6 +44,8 @@ class UndoButton: Sprite {
         self.setTextureVertices(x: 371.0, y: 16.0, w: 16.0, h: 16.0)
         
         self.vertices = verts
+        
+        self.setHitbox(x: 288, y: 0)
     }
     
     func switchTextures(){

@@ -32,18 +32,20 @@ class PlayButton: Sprite {
             1.0, 0.0 // texture BR
         ]
         
-        let verts: [Float] = self.getPositionVertices()
+        
         self.width = 64.0
         self.height = 64.0
 
         self.setQuadVertices()
-        
+        let verts: [Float] = self.getPositionVertices()
         self.positionX = -0.85
         self.positionY = 0.9
         
         self.setTextureVertices(x: 355.0, y: 0.0, w: 16.0, h: 16.0)
         
         self.vertices = verts
+        
+        self.setHitbox(x: 0, y: 0)
     }
     
     func switchTextures(){

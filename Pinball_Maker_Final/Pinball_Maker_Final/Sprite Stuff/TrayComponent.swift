@@ -34,6 +34,7 @@ class TrayComponent: Sprite
         self.height = 64.0
         self.setQuadVertices()
         self.setTextureVertices(x: 627.0, y: 0, w: 32.0, h: 32.0)
+        
 
         
     }

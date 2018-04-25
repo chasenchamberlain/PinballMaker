@@ -44,6 +44,8 @@ class EditButton: Sprite {
         self.setTextureVertices(x: 387.0, y: 16.0, w: 16.0, h: 16.0)
         
         self.vertices = verts
+        
+        self.setHitbox(x: 64, y: 0)
     }
     
     func switchTextures(){
