@@ -26,6 +26,8 @@ class ViewController: GLKViewController {
     
     var components = [Sprite]()
     
+    var hitboxesOfAddableComponents = [CGRect]()
+    
     override var prefersStatusBarHidden: Bool {
         return true
     }
@@ -90,6 +92,11 @@ class ViewController: GLKViewController {
                     self.undrawDrawComponentsOnTray()
                     model.displayTray = false
                 }
+                else if(model.componentSelected && model.displayTray)
+                {
+                    self.undrawDrawComponentsOnTray()
+                    model.displayTray = false
+                }
             }
         }
         else
@@ -148,6 +155,19 @@ class ViewController: GLKViewController {
     
     // TODO: Undo method to remove last component, ya know for mistakes ya dingus
     
+    // Assists with switch the state and the textures of the play button and edit button
+    fileprivate func switchStateAndTextures() {
+        if(model.editState)
+        {
+            model.editState = false
+        }
+        else
+        {
+            model.editState = true
+        }
+        self.playButton.switchTextures()
+        self.editButton.switchTextures()
+    }
     
     // MARK: - Touches
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -158,6 +178,23 @@ class ViewController: GLKViewController {
         print("Raw finger touch: \(xy) calculated in the model")
         
         self.model.touchesBegan((dummy?.location(in: glkView))!)
+        
+        if(self.playButton.hitbox.contains((dummy?.location(in: glkView))!))
+        {
+            print(" ")
+            print(" -------- HIT DAT PLAY BUTTON BOOOI -------- ")
+            print(" ")
+            
+            switchStateAndTextures()
+        }
+        if(self.editButton.hitbox.contains((dummy?.location(in: glkView))!))
+        {
+            print(" ")
+            print(" -------- HIT DAT EDIT BUTTON BOOOI -------- ")
+            print(" ")
+            
+            switchStateAndTextures()
+        }
         
         if(model.editState)
         {
@@ -186,23 +223,15 @@ class ViewController: GLKViewController {
                 model.trayOut = false
             }
  
-            if(self.playButton.hitbox.contains((dummy?.location(in: glkView))!))
-            {
-                print(" ")
-                print(" -------- HIT DAT PLAY BUTTON BOOOI -------- ")
-                print(" ")
-            }
-            if(self.editButton.hitbox.contains((dummy?.location(in: glkView))!))
-            {
-                print(" ")
-                print(" -------- HIT DAT EDIT BUTTON BOOOI -------- ")
-                print(" ")
-            }
+
             if(self.undoButton.hitbox.contains((dummy?.location(in: glkView))!))
             {
                 print(" ")
                 print(" -------- HIT DAT UNDO BUTTON BOOOI -------- ")
                 print(" ")
+                
+                // make sure to stop undos at a certain point.
+                components.removeLast()
             }
             
             // Place the component that was selected
@@ -279,12 +308,19 @@ class ViewController: GLKViewController {
             }
             else // Pick the compoent to be placed
             {
-                
+                for i in 0 ..< self.hitboxesOfAddableComponents.count
+                {
+                    if (self.hitboxesOfAddableComponents[i].contains((dummy?.location(in: glkView))!))
+                    {
+                        model.componentSelected = true
+                        print("Tapped on item at index: \(i)")
+                    }
+                }
             }
         }
         else // play mode time to shoot balls around
         {
-            
+            print("PLAY TIME BOOOOI")
         }
     }
     
@@ -299,10 +335,30 @@ class ViewController: GLKViewController {
 //        print("\(touchloc)")
     }
     
+    fileprivate func debugDrawOfSorts(x: Int, y: Int, spr: Sprite) {
+//        let component = WallSprite()
+        spr.setQuadVertices()
+        let i = Float(x * 32) // location of x tap
+        let k = Float(y * 32) // location of y tap
+        print("Grid Pixel X: \(i)")
+        print("Grid Pixel X: \(k)")
+        let w = Float(glkView.frame.size.width)
+        let h = Float(glkView.frame.size.height)
+        
+        let gridX = (2.0 * i + 1.0) / w - 1.0  //(2.0 * i) / w - 1.0
+        let gridY = (-2.0 * k + 1.0) / h + 1.0 //(-2.0 * k) / h + 1.0
+         print("X in gl: \(gridX)")
+         print("Y in gl: \(gridY)")
+        spr.positionX = gridX + 0.05
+        spr.positionY = gridY + -0.05
+//        component.setTextureVertices(x: 627, y: 0, w: 32, h: 32)
+        components.append(spr)
+    }
+    
     func drawComponentsOnTray()
     {
-        var add: Float = 0.59
-        
+        var add: CGFloat = 4
+
         let floats: [[Float]] = [
         [116, 0, 32, 32],
         [148, 0, 32, 32],
@@ -313,22 +369,27 @@ class ViewController: GLKViewController {
         for i in 0 ..< 5
         {
             let test = TrayComponent()
-            components.append(test)
-            test.positionX = 0.5
-            test.positionY = add
-            add -= 0.34
-            if(i == 2)
-            {
-                test.width = 16.0
-                test.height = 32.0 * 2.0
-            }
-            if(i == 3)
-            {
-                test.width = 32.0
-                test.height = 29.0
-            }
+            test.setHitbox(x: 8 * 32, y: add * 32)
+            self.hitboxesOfAddableComponents.append(test.hitbox)
             test.setTextureVertices(x: floats[i][0], y: floats[i][1], w: floats[i][2], h: floats[i][3])
+            debugDrawOfSorts(x: 8, y: Int(add), spr: test)
+
+//            components.append(test)
+//            test.positionX = 0.5
+//            test.positionY = add
+            add += 3.0
+//            if(i == 2)
+//            {
+//                test.width = 16.0
+//                test.height = 32.0 * 2.0
+//            }
+//            if(i == 3)
+//            {
+//                test.width = 32.0
+//                test.height = 29.0
+//            }
         }
+        
 
     }
     

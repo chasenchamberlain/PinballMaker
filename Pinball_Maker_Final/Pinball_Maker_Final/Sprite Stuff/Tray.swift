@@ -32,11 +32,13 @@ class Tray: Sprite {
             1.0, 0.0, 1.0, 0.0,
             1.0, 0.0 // texture BR
         ]
-        self.width = 32.0
+        self.width = 46.0
         self.height = Float(UIScreen.main.bounds.height - 64.0)
 //        self.setQuadVertices()
         
         self.setTextureVertices(x: 627, y: 0, w: 32, h: 32)
+        
+        self.setHitbox(x: UIScreen.main.bounds.width - 46, y: 64)
     }
     
     // Moves the tray around.
