@@ -20,7 +20,7 @@ class WallSprite: Sprite
             
             0.5, 0.0,
             1.0, 0.0, 1.0, 0.0,
-            Float(32.0/736.0), Float(32.0/736.0), // texture
+            1.0, 1.0, // texture
             
             0.0, 0.5,
             1.0, 0.0, 1.0, 0.0,
@@ -28,7 +28,7 @@ class WallSprite: Sprite
             
             0.5, 0.5,
             1.0, 0.0, 1.0, 0.0,
-            Float(32.0/736.0), Float(32.0/736.0) // texture
+            1.0, 0.0, // texture
         ]
         let verts: [Float] = self.getPositionVertices()
         self.width = 32.0

@@ -67,8 +67,9 @@ class ViewController: GLKViewController {
     func update() {
         if(model.editState)
         {
-            if(model.trayOut) // Tray is moving out
+            if(model.trayOut) // Tray is moving out or out
             {
+                model.componentSelected = false
                 if(self.tray.X > 0 ) // move it to the middle of the screen
                 {
                     self.tray.moveTrayInOrOut(direction: "out")
@@ -102,8 +103,10 @@ class ViewController: GLKViewController {
         }
         else
         {
-            // fill me with stuff
+            // fill me play with stuff
         }
+        
+        
         
     }
     
@@ -184,6 +187,8 @@ class ViewController: GLKViewController {
         
         self.model.touchesBegan((dummy?.location(in: glkView))!)
         
+        
+        // give the model all these hitboxes.
         if(self.playButton.hitbox.contains((dummy?.location(in: glkView))!))
         {
             print(" ")
@@ -236,7 +241,10 @@ class ViewController: GLKViewController {
                 print(" ")
                 
                 // make sure to stop undos at a certain point.
-                baseComponents.removeLast()
+                if(!components.isEmpty)
+                {
+                    components.removeLast()
+                }
             }
             
             // Place the component that was selected
@@ -272,13 +280,34 @@ class ViewController: GLKViewController {
                     //                let k = Float(xy.y) // location of tap
                     //                let w = Float(glkView.frame.size.width)
                     //                let h = Float(glkView.frame.size.height)
-                    let component = WallSprite()
+                    
+                    var component = Sprite()
+                    switch model.componentValue{
+                    case 0:
+                        component = CircleBumper()
+                        component.setHitbox(x: flooredX, y: flooredY)
+                    case 1:
+                        component = TriangleBumper()
+                        component.setHitbox(x: flooredX, y: flooredY)
+                    case 2:
+                        component = CircleBumper()
+                        component.setHitbox(x: flooredX, y: flooredY)
+                    case 3:
+                        component = CircleBumper()
+                        component.setHitbox(x: flooredX, y: flooredY)
+                    case 4:
+                        component = CircleBumper()
+                        component.setHitbox(x: flooredX, y: flooredY)
+                    default:
+                        component = WallSprite()
+                        component.setHitbox(x: flooredX, y: flooredY)
+                    }
                     
                     let gridX = (2.0 * i + 1.0) / w - 1.0 //(2.0 * i) / w - 1.0
                     let gridY = (-2.0 * k + 1.0) / h + 1.0 //(-2.0 * k) / h + 1.0
                     
-                    component.positionX = gridX + -0.035
-                    component.positionY = gridY + -0.055
+                    component.positionX = gridX + 0.05
+                    component.positionY = gridY + -0.05
                     
                     print("X in gl: \(gridX)")
                     print("Y in gl: \(gridY)")
@@ -290,7 +319,7 @@ class ViewController: GLKViewController {
                     // component.positionX =
                     // component.positionY =
                     
-                    baseComponents.append(component)
+                    components.append(component)
                     drawComponents()
                 }
                 // END -- DEBUG PORTION
@@ -319,6 +348,7 @@ class ViewController: GLKViewController {
                     {
                         model.componentSelected = true
                         print("Tapped on item at index: \(i)")
+                        model.componentValue = i
                     }
                 }
             }
@@ -364,7 +394,7 @@ class ViewController: GLKViewController {
     {
         var add: CGFloat = 4
 
-        let floats: [[Float]] = [
+        let textureFloatArray: [[Float]] = [
         [116, 0, 32, 32],
         [148, 0, 32, 32],
         [180, 0, 16, 32],
@@ -374,9 +404,13 @@ class ViewController: GLKViewController {
         for i in 0 ..< 5
         {
             let test = TrayComponent()
-            test.setHitbox(x: 8 * 32, y: add * 32)
-            self.hitboxesOfAddableComponents.append(test.hitbox)
-            test.setTextureVertices(x: floats[i][0], y: floats[i][1], w: floats[i][2], h: floats[i][3])
+//            test.setHitbox(x: 8 * 32, y: add * 32)
+            test.hitbox = CGRect(x: 7 * 32 , y: add * 32, width: 96.0, height: 96.0)
+            if(self.hitboxesOfAddableComponents.count != 5)
+            {
+                self.hitboxesOfAddableComponents.append(test.hitbox)
+            }
+            test.setTextureVertices(x: textureFloatArray[i][0], y: textureFloatArray[i][1], w: textureFloatArray[i][2], h: textureFloatArray[i][3])
             debugDrawOfSorts(x: 8, y: Int(add), spr: test)
 
 //            components.append(test)

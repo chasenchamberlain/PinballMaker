@@ -35,6 +35,9 @@ class Model
     // Boolean for play or edit, we start in edit mode
     var editState = true
     
+    // 0 - 4 is the selectable components from the tray, this value represents that
+    var componentValue: Int = -1
+    
     // Boolean to show a user selected a component
     var componentSelected = false
     
