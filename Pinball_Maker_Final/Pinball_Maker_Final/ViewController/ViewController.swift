@@ -24,6 +24,7 @@ class ViewController: GLKViewController {
     var editButton: EditButton!
     var undoButton: UndoButton!
     
+    var baseComponents = [Sprite]()
     var components = [Sprite]()
     
     var hitboxesOfAddableComponents = [CGRect]()
@@ -121,6 +122,10 @@ class ViewController: GLKViewController {
         {
             comp.draw()
         }
+        for comp in baseComponents
+        {
+            comp.draw()
+        }
     }
     
     // MARK: - Intial Setup
@@ -137,7 +142,7 @@ class ViewController: GLKViewController {
 //        components.append(rightWall)
         
         debugDrawGrid()
-        components.append(tray)
+        baseComponents.append(tray)
 
 //        components.append(playButton)
 //        components.append(editButton)
@@ -231,7 +236,7 @@ class ViewController: GLKViewController {
                 print(" ")
                 
                 // make sure to stop undos at a certain point.
-                components.removeLast()
+                baseComponents.removeLast()
             }
             
             // Place the component that was selected
@@ -285,7 +290,7 @@ class ViewController: GLKViewController {
                     // component.positionX =
                     // component.positionY =
                     
-                    components.append(component)
+                    baseComponents.append(component)
                     drawComponents()
                 }
                 // END -- DEBUG PORTION
@@ -340,19 +345,19 @@ class ViewController: GLKViewController {
         spr.setQuadVertices()
         let i = Float(x * 32) // location of x tap
         let k = Float(y * 32) // location of y tap
-        print("Grid Pixel X: \(i)")
-        print("Grid Pixel X: \(k)")
+//        print("Grid Pixel X: \(i)")
+//        print("Grid Pixel X: \(k)")
         let w = Float(glkView.frame.size.width)
         let h = Float(glkView.frame.size.height)
         
         let gridX = (2.0 * i + 1.0) / w - 1.0  //(2.0 * i) / w - 1.0
         let gridY = (-2.0 * k + 1.0) / h + 1.0 //(-2.0 * k) / h + 1.0
-         print("X in gl: \(gridX)")
-         print("Y in gl: \(gridY)")
+//        print("X in gl: \(gridX)")
+//        print("Y in gl: \(gridY)")
         spr.positionX = gridX + 0.05
         spr.positionY = gridY + -0.05
 //        component.setTextureVertices(x: 627, y: 0, w: 32, h: 32)
-        components.append(spr)
+        baseComponents.append(spr)
     }
     
     func drawComponentsOnTray()
@@ -397,7 +402,7 @@ class ViewController: GLKViewController {
     {
         for _ in 0 ..< 5
         {
-            components.removeLast()
+            baseComponents.removeLast()
         }
     }
     
@@ -421,7 +426,7 @@ class ViewController: GLKViewController {
 //                    print("Y in gl: \(gridY)")
                     component.positionX = gridX + 0.05
                     component.positionY = gridY + -0.05
-                    components.append(component)
+                    baseComponents.append(component)
                 }
                 if(model.gameGrid[y][x] == 8) // play button
                 {
@@ -437,7 +442,7 @@ class ViewController: GLKViewController {
                     //                    print("Y in gl: \(gridY)")
                     playButton.positionX = gridX
                     playButton.positionY = gridY
-                    components.append(playButton)
+                    baseComponents.append(playButton)
                 }
                 if(model.gameGrid[y][x] == 9) // edit button
                 {
@@ -453,7 +458,7 @@ class ViewController: GLKViewController {
                     //                    print("Y in gl: \(gridY)")
                     editButton.positionX = gridX
                     editButton.positionY = gridY
-                    components.append(editButton)
+                    baseComponents.append(editButton)
                 }
                 if(model.gameGrid[y][x] == 10) // undo button
                 {
@@ -469,7 +474,7 @@ class ViewController: GLKViewController {
                     //                    print("Y in gl: \(gridY)")
                     undoButton.positionX = gridX
                     undoButton.positionY = gridY
-                    components.append(undoButton)
+                    baseComponents.append(undoButton)
                 }
                 if(model.gameGrid[y][x] == 7 )//|| model.gameGrid[y][x] == 0)
                 {
@@ -486,7 +491,7 @@ class ViewController: GLKViewController {
                     //                    print("Y in gl: \(gridY)")
                     component.positionX = gridX + 0.05
                     component.positionY = gridY + -0.05
-                    components.append(component)
+                    baseComponents.append(component)
                 }
             }
         }
