@@ -27,6 +27,8 @@
 		C46F0A4C2088537A00B93F50 /* thermostat.png in Resources */ = {isa = PBXBuildFile; fileRef = C46F0A4B2088537A00B93F50 /* thermostat.png */; };
 		C46F0A552088608500B93F50 /* Hitbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46F0A542088608500B93F50 /* Hitbox.swift */; };
 		C48CDD32208F0EB800A57FAD /* TrayComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48CDD31208F0EB800A57FAD /* TrayComponent.swift */; };
+		C4B973B72093D26F0026223E /* Flag.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B973B62093D26F0026223E /* Flag.swift */; };
+		C4B973B92093D27B0026223E /* Peg.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B973B82093D27B0026223E /* Peg.swift */; };
 		C4FEA84B208FDCD3008E5F1B /* Ball.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FEA84A208FDCD3008E5F1B /* Ball.swift */; };
 		C4FEA84D208FDCE4008E5F1B /* CircleBumper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FEA84C208FDCE4008E5F1B /* CircleBumper.swift */; };
 		C4FEA84F208FDCF3008E5F1B /* TriangleBumper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FEA84E208FDCF3008E5F1B /* TriangleBumper.swift */; };
@@ -55,6 +57,8 @@
 		C46F0A4B2088537A00B93F50 /* thermostat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thermostat.png; sourceTree = "<group>"; };
 		C46F0A542088608500B93F50 /* Hitbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hitbox.swift; sourceTree = "<group>"; };
 		C48CDD31208F0EB800A57FAD /* TrayComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrayComponent.swift; sourceTree = "<group>"; };
+		C4B973B62093D26F0026223E /* Flag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flag.swift; sourceTree = "<group>"; };
+		C4B973B82093D27B0026223E /* Peg.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Peg.swift; sourceTree = "<group>"; };
 		C4FEA84A208FDCD3008E5F1B /* Ball.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ball.swift; sourceTree = "<group>"; };
 		C4FEA84C208FDCE4008E5F1B /* CircleBumper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleBumper.swift; sourceTree = "<group>"; };
 		C4FEA84E208FDCF3008E5F1B /* TriangleBumper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriangleBumper.swift; sourceTree = "<group>"; };
@@ -161,6 +165,8 @@
 				C4FEA84A208FDCD3008E5F1B /* Ball.swift */,
 				C4FEA84C208FDCE4008E5F1B /* CircleBumper.swift */,
 				C4FEA84E208FDCF3008E5F1B /* TriangleBumper.swift */,
+				C4B973B62093D26F0026223E /* Flag.swift */,
+				C4B973B82093D27B0026223E /* Peg.swift */,
 			);
 			path = "Sprite Stuff";
 			sourceTree = "<group>";
@@ -254,6 +260,7 @@
 				C4526F58208978C5004656B2 /* PlayButton.swift in Sources */,
 				C46F0A462088534A00B93F50 /* Sprite.swift in Sources */,
 				C46F0A3E208852C300B93F50 /* Model.swift in Sources */,
+				C4B973B92093D27B0026223E /* Peg.swift in Sources */,
 				C4526F5C208C2FD0004656B2 /* Tray.swift in Sources */,
 				C46F0A482088535E00B93F50 /* WallSprite.swift in Sources */,
 				C4FEA84D208FDCE4008E5F1B /* CircleBumper.swift in Sources */,
@@ -265,6 +272,7 @@
 				C46F0A2E2088522800B93F50 /* ViewController.swift in Sources */,
 				C46F0A2C2088522800B93F50 /* AppDelegate.swift in Sources */,
 				C42B9742208EFB1F003A1FD2 /* UndoButton.swift in Sources */,
+				C4B973B72093D26F0026223E /* Flag.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -408,6 +416,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YNDY2Y4TSY;
 				INFOPLIST_FILE = Pinball_Maker_Final/Info.plist;
@@ -417,6 +426,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "chasen.Pinball-Maker-Final";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -426,6 +436,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YNDY2Y4TSY;
 				INFOPLIST_FILE = Pinball_Maker_Final/Info.plist;
@@ -435,6 +446,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "chasen.Pinball-Maker-Final";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

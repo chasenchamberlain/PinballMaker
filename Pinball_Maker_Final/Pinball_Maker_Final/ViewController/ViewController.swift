@@ -290,13 +290,13 @@ class ViewController: GLKViewController {
                         component = TriangleBumper()
                         component.setHitbox(x: flooredX, y: flooredY)
                     case 2:
-                        component = CircleBumper()
+                        component = Peg()
                         component.setHitbox(x: flooredX, y: flooredY)
                     case 3:
-                        component = CircleBumper()
+                        component = Flag()
                         component.setHitbox(x: flooredX, y: flooredY)
                     case 4:
-                        component = CircleBumper()
+                        component = Ball()
                         component.setHitbox(x: flooredX, y: flooredY)
                     default:
                         component = WallSprite()
