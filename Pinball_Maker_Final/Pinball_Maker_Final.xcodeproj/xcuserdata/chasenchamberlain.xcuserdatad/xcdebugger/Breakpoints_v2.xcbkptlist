@@ -6,64 +6,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Pinball_Maker_Final/Model Stuff/Model.swift"
-            timestampString = "546558780.78452"
+            filePath = "Pinball_Maker_Final/Sprite Stuff/Sprite.swift"
+            timestampString = "546596323.2887371"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "116"
-            endingLineNumber = "116"
-            landmarkName = "setupTheGrid()"
+            startingLineNumber = "214"
+            endingLineNumber = "214"
+            landmarkName = "boundingBoxWithModelViewMatrix()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Pinball_Maker_Final/Model Stuff/Model.swift"
-            timestampString = "546558780.784817"
+            filePath = "Pinball_Maker_Final/Sprite Stuff/Sprite.swift"
+            timestampString = "546596323.289363"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
-            landmarkName = "setupTheGrid()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Pinball_Maker_Final/Model Stuff/Model.swift"
-            timestampString = "546558780.785028"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "141"
-            endingLineNumber = "141"
-            landmarkName = "setupTheGrid()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Pinball_Maker_Final/Model Stuff/Model.swift"
-            timestampString = "546558780.785233"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
-            landmarkName = "setupGridDimensions()"
+            startingLineNumber = "227"
+            endingLineNumber = "227"
+            landmarkName = "boundingBoxWithModelViewMatrix()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

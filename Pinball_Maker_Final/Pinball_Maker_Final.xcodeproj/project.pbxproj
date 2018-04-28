@@ -29,6 +29,8 @@
 		C48CDD32208F0EB800A57FAD /* TrayComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48CDD31208F0EB800A57FAD /* TrayComponent.swift */; };
 		C4B973B72093D26F0026223E /* Flag.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B973B62093D26F0026223E /* Flag.swift */; };
 		C4B973B92093D27B0026223E /* Peg.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B973B82093D27B0026223E /* Peg.swift */; };
+		C4B973BB20941DAA0026223E /* LeftPaddle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B973BA20941DAA0026223E /* LeftPaddle.swift */; };
+		C4B973BD20941DB40026223E /* RightPaddle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B973BC20941DB40026223E /* RightPaddle.swift */; };
 		C4FEA84B208FDCD3008E5F1B /* Ball.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FEA84A208FDCD3008E5F1B /* Ball.swift */; };
 		C4FEA84D208FDCE4008E5F1B /* CircleBumper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FEA84C208FDCE4008E5F1B /* CircleBumper.swift */; };
 		C4FEA84F208FDCF3008E5F1B /* TriangleBumper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FEA84E208FDCF3008E5F1B /* TriangleBumper.swift */; };
@@ -59,6 +61,8 @@
 		C48CDD31208F0EB800A57FAD /* TrayComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrayComponent.swift; sourceTree = "<group>"; };
 		C4B973B62093D26F0026223E /* Flag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flag.swift; sourceTree = "<group>"; };
 		C4B973B82093D27B0026223E /* Peg.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Peg.swift; sourceTree = "<group>"; };
+		C4B973BA20941DAA0026223E /* LeftPaddle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftPaddle.swift; sourceTree = "<group>"; };
+		C4B973BC20941DB40026223E /* RightPaddle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightPaddle.swift; sourceTree = "<group>"; };
 		C4FEA84A208FDCD3008E5F1B /* Ball.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ball.swift; sourceTree = "<group>"; };
 		C4FEA84C208FDCE4008E5F1B /* CircleBumper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleBumper.swift; sourceTree = "<group>"; };
 		C4FEA84E208FDCF3008E5F1B /* TriangleBumper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriangleBumper.swift; sourceTree = "<group>"; };
@@ -167,6 +171,8 @@
 				C4FEA84E208FDCF3008E5F1B /* TriangleBumper.swift */,
 				C4B973B62093D26F0026223E /* Flag.swift */,
 				C4B973B82093D27B0026223E /* Peg.swift */,
+				C4B973BA20941DAA0026223E /* LeftPaddle.swift */,
+				C4B973BC20941DB40026223E /* RightPaddle.swift */,
 			);
 			path = "Sprite Stuff";
 			sourceTree = "<group>";
@@ -268,10 +274,12 @@
 				C42B9740208EEC59003A1FD2 /* EditButton.swift in Sources */,
 				C46F0A552088608500B93F50 /* Hitbox.swift in Sources */,
 				C46F0A442088533100B93F50 /* GameScreen.swift in Sources */,
+				C4B973BB20941DAA0026223E /* LeftPaddle.swift in Sources */,
 				C4FEA84F208FDCF3008E5F1B /* TriangleBumper.swift in Sources */,
 				C46F0A2E2088522800B93F50 /* ViewController.swift in Sources */,
 				C46F0A2C2088522800B93F50 /* AppDelegate.swift in Sources */,
 				C42B9742208EFB1F003A1FD2 /* UndoButton.swift in Sources */,
+				C4B973BD20941DB40026223E /* RightPaddle.swift in Sources */,
 				C4B973B72093D26F0026223E /* Flag.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

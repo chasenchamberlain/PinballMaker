@@ -22,6 +22,7 @@ class Sprite {
     
     internal var rotationX : Float = 0.0
     internal var rotationY : Float = 0.0
+    internal var rotationZ : Float = 0.0
     
     internal var scaleX : Float = 1.0 { didSet{self.computeWidth()} }
     internal var scaleY : Float = 1.0 { didSet{self.computeHeight()} }
@@ -37,10 +38,15 @@ class Sprite {
     var modelViewMatrix: GLKMatrix4 {
         var modelMatrix : GLKMatrix4 = GLKMatrix4Identity
         modelMatrix = GLKMatrix4Translate(modelMatrix, self.positionX, self.positionY, 0)
-        modelMatrix = GLKMatrix4Rotate(modelMatrix, self.rotationX, 1, 0, 0)
+        modelMatrix = GLKMatrix4Rotate(modelMatrix, GLKMathDegreesToRadians(self.rotationX), 1, 0, 0)
         modelMatrix = GLKMatrix4Rotate(modelMatrix, self.rotationY, 0, 1, 0)
-        //        modelMatrix = GLKMatrix4Rotate(modelMatrix, 0, 0, 0, 1)
+        modelMatrix = GLKMatrix4Rotate(modelMatrix, self.rotationZ, 0, 0, 1)
         modelMatrix = GLKMatrix4Scale(modelMatrix, self.scaleX, self.scaleY, 1)
+//        modelMatrix = GLKMatrix4Translate(modelMatrix, -self.positionX, -self.positionY, -0)
+
+
+//        modelMatrix = GLKMatrix4Translate(modelMatrix, 0, 0, 0)
+
         return modelMatrix
     }
     
@@ -197,19 +203,27 @@ class Sprite {
     }
     
     // Bounding box for collision/clicky things
-    internal func boundingBoxWithModelViewMatrix(parenetModelViewMatrix: GLKMatrix4) -> CGRect {
-        let modelViewMatrix = GLKMatrix4Multiply(parenetModelViewMatrix, self.modelViewMatrix)
+    internal func boundingBoxWithModelViewMatrix() -> CGRect {
+//        let modelViewMatrix = GLKMatrix4Multiply(parenetModelViewMatrix, self.modelViewMatrix)
+    
+//        self.setQuadVertices()
+        let posverts = getPositionVertices()
         
+        let dumbX = UIScreen.main.bounds.width * (CGFloat(self.width)/UIScreen.main.bounds.width)
+        let dumbY = UIScreen.main.bounds.height * -(CGFloat(self.height)/UIScreen.main.bounds.height)
+        let xPix: CGFloat = (dumbX + UIScreen.main.bounds.width - 1)/2
+        let yPix: CGFloat = (dumbY + UIScreen.main.bounds.height + 1)/2
         let preLowerLeft = GLKVector4Make(self.width, self.height, 0, 1)
         let lowerLeft = GLKMatrix4MultiplyVector4(modelViewMatrix, preLowerLeft)
         
         let preUpperRight = GLKVector4Make(self.width, self.height, 0, 1)
         let upperRight = GLKMatrix4MultiplyVector4(modelViewMatrix, preUpperRight)
         
-        let boundingBox = CGRect(x: CGFloat(lowerLeft.x),
-                                 y: CGFloat(lowerLeft.y),
-                                 width: CGFloat(upperRight.x - lowerLeft.x),
-                                 height: CGFloat(upperRight.y - lowerLeft.y))
+        let boundingBox = CGRect(x: xPix,
+                                 y: yPix,
+                                 width: CGFloat(self.width),
+                                 height: CGFloat(self.height))
+        print("\(self.quad)")
         return boundingBox
     }
     
@@ -218,15 +232,16 @@ class Sprite {
         var verts: [Float] = []
         if !quad.isEmpty
         {
+            // BL
             verts.append(quad[0])
             verts.append(quad[1])
-            
+            // BR
             verts.append(quad[8])
             verts.append(quad[9])
-            
+            // TL
             verts.append(quad[16])
             verts.append(quad[17])
-            
+            // TR
             verts.append(quad[24])
             verts.append(quad[25])
             

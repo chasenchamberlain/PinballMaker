@@ -23,6 +23,8 @@ class ViewController: GLKViewController {
     var playButton: PlayButton!
     var editButton: EditButton!
     var undoButton: UndoButton!
+    var leftPaddle: LeftPaddle!
+    var rightPaddle: RightPaddle!
     
     var baseComponents = [Sprite]()
     var components = [Sprite]()
@@ -44,9 +46,14 @@ class ViewController: GLKViewController {
         
         self.model = Model()
         self.tray = Tray()
+        print("\(self.tray.boundingBoxWithModelViewMatrix())")
         self.playButton = PlayButton()
         self.editButton = EditButton()
         self.undoButton = UndoButton()
+        self.leftPaddle = LeftPaddle()
+        self.rightPaddle = RightPaddle()
+        debugDrawOfSorts(x: 3, y: 17, spr: leftPaddle)
+        debugDrawOfSorts(x: 7, y: 17, spr: rightPaddle)
         setup()
         glEnable(GLenum(GL_BLEND))
         glBlendFunc(GLenum(GL_SRC_ALPHA), GLenum(GL_ONE_MINUS_SRC_ALPHA))
@@ -65,8 +72,11 @@ class ViewController: GLKViewController {
     }
     
     func update() {
+        switchStateAndTextures()
+        
         if(model.editState)
         {
+            undoComponent()
             if(model.trayOut) // Tray is moving out or out
             {
                 model.componentSelected = false
@@ -103,7 +113,18 @@ class ViewController: GLKViewController {
         }
         else
         {
-            // fill me play with stuff
+            if(model.paddleLeftUp)
+            {
+//                if(leftPaddle.rotationZ < 0.5)
+//                {
+//                    leftPaddle.modelViewMatrix = GLKMatrix4RotateZ(leftPaddle.modelViewMatrix, 0.5)
+//                    leftPaddle.rotationZ += 0.01
+//                }
+            }
+            if(model.paddleRightUp)
+            {
+                
+            }
         }
         
         
@@ -135,6 +156,10 @@ class ViewController: GLKViewController {
     // Setups up our GameScene with appropriate walls etc.
     func setup()
     {
+        model.hitboxesOfStaticParts.append(playButton.hitbox)
+        model.hitboxesOfStaticParts.append(editButton.hitbox)
+        model.hitboxesOfStaticParts.append(undoButton.hitbox)
+        model.hitboxesOfStaticParts.append(tray.hitbox)
         model.setupTheGrid()
         let gameScreenBackground = GameScreen()
 //        let rightWall =  WallSprite()
@@ -165,197 +190,230 @@ class ViewController: GLKViewController {
     
     // Assists with switch the state and the textures of the play button and edit button
     fileprivate func switchStateAndTextures() {
-        if(model.editState)
+        if(model.swapTextures)
         {
-            model.editState = false
+            self.playButton.switchTextures()
+            self.editButton.switchTextures()
+            model.swapTextures = false
         }
-        else
-        {
-            model.editState = true
-        }
-        self.playButton.switchTextures()
-        self.editButton.switchTextures()
     }
     
     // MARK: - Touches
+    fileprivate func undoComponent() {
+        // make sure to stop undos at a certain point.
+        if(model.undoComponet)
+        {
+            if(!components.isEmpty)
+            {
+                components.removeLast()
+            }
+            model.undoComponet = false
+        }
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let dummy = touches.first
-        print("Frame height: \(glkView.frame.size.height) Frame Width: \(glkView.frame.size.width)")
-
-        let xy = model.touchLocationToGameArea((dummy?.location(in: glkView))!)
-        print("Raw finger touch: \(xy) calculated in the model")
-        
-        self.model.touchesBegan((dummy?.location(in: glkView))!)
-        
-        
-        // give the model all these hitboxes.
-        if(self.playButton.hitbox.contains((dummy?.location(in: glkView))!))
-        {
-            print(" ")
-            print(" -------- HIT DAT PLAY BUTTON BOOOI -------- ")
-            print(" ")
-            
-            switchStateAndTextures()
-        }
-        if(self.editButton.hitbox.contains((dummy?.location(in: glkView))!))
-        {
-            print(" ")
-            print(" -------- HIT DAT EDIT BUTTON BOOOI -------- ")
-            print(" ")
-            
-            switchStateAndTextures()
-        }
+        self.model.touchesBegan(touches, pixelTouch: (dummy?.location(in: glkView))!)
+//        print("Frame height: \(glkView.frame.size.height) Frame Width: \(glkView.frame.size.width)")
+//
+        let xy = (dummy?.location(in: glkView))!
+//        print("Raw finger touch: \(xy) calculated in the model")
+//
+////
+////
+////        // give the model all these hitboxes.
+////        if(self.playButton.hitbox.contains((dummy?.location(in: glkView))!))
+////        {
+////            print(" ")
+////            print(" -------- HIT DAT PLAY BUTTON BOOOI -------- ")
+////            print(" ")
+////
+////            switchStateAndTextures()
+////        }
+////        if(self.editButton.hitbox.contains((dummy?.location(in: glkView))!))
+////        {
+////            print(" ")
+////            print(" -------- HIT DAT EDIT BUTTON BOOOI -------- ")
+////            print(" ")
+////
+//            switchStateAndTextures()
+////        }
+//
+//        if(model.editState)
+//        {
+//            // Check if the area is already populated with a component, if it is don't put anything there.
+//            print("X in Grid before round: \((xy.x/32.0))")
+//            print("Y in Grid before round: \((xy.y/32.0))")
+//
+////            var t = CGAffineTransform(scaleX: 1.0 / UIScreen.main.bounds.width, y: 1.0 / UIScreen.main.bounds.height);
+////            var unitRect = UIScreen.main.bounds.applying(t);
+//
+//            // This is the tray sliding in and out stuff.
+////            if(trayAreaTouch.contains((dummy?.location(in: glkView))!))
+////            {
+////                if(model.trayOut)
+////                {
+////                    model.trayOut = false
+////                }
+////                else
+////                {
+////                    print("TRAY TOUCHED")
+////                    model.trayOut = true
+////                }
+////            }
+////            else if(model.trayOut)
+////            {
+////                model.trayOut = false
+////            }
+////
+////
+////            if(self.undoButton.hitbox.contains((dummy?.location(in: glkView))!))
+////            {
+////                print(" ")
+////                print(" -------- HIT DAT UNDO BUTTON BOOOI -------- ")
+////                print(" ")
+////
+//                undoComponent()
+////            }
+//
+//            // Place the component that was selected
+////            model.componentSelected = true // DEBUG
+//            if(model.componentSelected)
+//            {
+//                let flooredX = round(xy.x/32)
+//                let flooredY = round(xy.y/32)
+//
+//                print("FloordX: \(flooredX) FlooredY: \(flooredY)")
+//                // Depending on the selected component, make a new one proceed to place it.
+//                if(model.gameGrid[Int(flooredY)][Int(flooredX)] == 7)
+//                {
+//                    print("--- DRAWING A NEW COMPONENT ---")
+//                    print(" ")
+//                    print("Number in 2D array :: \(model.gameGrid[Int(flooredY)][Int(flooredX)])")
+//                    print(" ")
+//                    let i = Float(flooredX * 32) // location of x tap
+//                    let k = Float(flooredY * 32) // location of y tap
+//                    let w = Float(glkView.frame.size.width)
+//                    let h = Float(glkView.frame.size.height)
+//
+//
+//                    // START -- DEBUG PORTION
+//
+//                    // x = -1.0 + i * (2.0 / w) + (1.0 / w) = (2.0 * i + 1.0) / w - 1.0
+//                    // y = -1.0 + k * (2.0 / h) + (1.0 / h) = (2.0 * k + 1.0) / h - 1.0
+//
+//                    // i = (w / 2)(x + 1)
+//                    // k = (h - h * x) / 2
+//
+//                    //                let i = Float(xy.x) // location of tap
+//                    //                let k = Float(xy.y) // location of tap
+//                    //                let w = Float(glkView.frame.size.width)
+//                    //                let h = Float(glkView.frame.size.height)
+//
+//                    var component = Sprite()
+//                    switch model.componentValue{
+//                    case 0:
+//                        component = CircleBumper()
+//                        component.setHitbox(x: flooredX, y: flooredY)
+//                    case 1:
+//                        component = TriangleBumper()
+//                        component.setHitbox(x: flooredX, y: flooredY)
+//                    case 2:
+//                        component = Peg()
+//                        component.setHitbox(x: flooredX, y: flooredY)
+//                    case 3:
+//                        component = Flag()
+//                        component.setHitbox(x: flooredX, y: flooredY)
+//                    case 4:
+//                        component = Ball()
+//                        component.setHitbox(x: flooredX, y: flooredY)
+//                    default:
+//                        component = WallSprite()
+//                        component.setHitbox(x: flooredX, y: flooredY)
+//                    }
+//
+//                    let gridX = (2.0 * i + 1.0) / w - 1.0 //(2.0 * i) / w - 1.0
+//                    let gridY = (-2.0 * k + 1.0) / h + 1.0 //(-2.0 * k) / h + 1.0
+//
+//                    component.positionX = gridX + 0.05
+//                    component.positionY = gridY + -0.05
+//
+//                    print("X in gl: \(gridX)")
+//                    print("Y in gl: \(gridY)")
+//                    print("GridX: \(model.gridX)")
+//                    print("GridY: \(model.gridY)")
+//                    print("Pos X: \(component.positionX)")
+//                    print("Pos Y: \(component.positionY)")
+//
+//                    components.append(component)
+//                    drawComponents()
+//                }
+//        }
+//                // END -- DEBUG PORTION
+//                else
+//                {
+//                    print(" ")
+//                    print(" --- DIDN'T DRAW A NEW COMPONENT ---")
+//                    print(" ")
+//                    print("Number in 2D array :: \(model.gameGrid[Int(flooredY)][Int(flooredX)])")
+//
+//                    let i = Float(flooredX * 32) // location of x tap
+//                    let k = Float(flooredY * 32) // location of y tap
+//                    let w = Float(glkView.frame.size.width)
+//                    let h = Float(glkView.frame.size.height)
+//                    let gridX = (2.0 * i + 1.0) / w - 1.0 //(2.0 * i) / w - 1.0
+//                    let gridY = (-2.0 * k + 1.0) / h + 1.0 //(-2.0 * k) / h + 1.0
+//                    print("X in gl: \(gridX)")
+//                    print("Y in gl: \(gridY)")
+//                }
+//            }
+//            else // Pick the compoent to be placed
+//            {
+//                for i in 0 ..< self.hitboxesOfAddableComponents.count
+//                {
+//                    if (self.hitboxesOfAddableComponents[i].contains((dummy?.location(in: glkView))!))
+//                    {
+//                        model.componentSelected = true
+//                        print("Tapped on item at index: \(i)")
+//                        model.componentValue = i
+//                    }
+//                }
+//            }
+//        }
+//        else // play mode time to shoot balls around
+//        {
+//            print("PLAY TIME BOOOOI")
+//        }
         
         if(model.editState)
         {
-            // Check if the area is already populated with a component, if it is don't put anything there.
-            print("X in Grid before round: \((xy.x/32.0))")
-            print("Y in Grid before round: \((xy.y/32.0))")
-            
-//            var t = CGAffineTransform(scaleX: 1.0 / UIScreen.main.bounds.width, y: 1.0 / UIScreen.main.bounds.height);
-//            var unitRect = UIScreen.main.bounds.applying(t);
-            
-            // This is the tray sliding in and out stuff.
-            if(trayAreaTouch.contains((dummy?.location(in: glkView))!))
-            {
-                if(model.trayOut)
-                {
-                    model.trayOut = false
-                }
-                else
-                {
-                    print("TRAY TOUCHED")
-                    model.trayOut = true
-                }
-            }
-            else if(model.trayOut)
-            {
-                model.trayOut = false
-            }
- 
-
-            if(self.undoButton.hitbox.contains((dummy?.location(in: glkView))!))
-            {
-                print(" ")
-                print(" -------- HIT DAT UNDO BUTTON BOOOI -------- ")
-                print(" ")
-                
-                // make sure to stop undos at a certain point.
-                if(!components.isEmpty)
-                {
-                    components.removeLast()
-                }
-            }
-            
-            // Place the component that was selected
-//            model.componentSelected = true // DEBUG
             if(model.componentSelected)
             {
-                let flooredX = round(xy.x/32)
-                let flooredY = round(xy.y/32)
+                let compPosition = model.getComponentCalculations()
                 
-                print("FloordX: \(flooredX) FlooredY: \(flooredY)")
-                // Depending on the selected component, make a new one proceed to place it.
-                if(model.gameGrid[Int(flooredY)][Int(flooredX)] == 7)
+                if(compPosition.flooredX != 0 || compPosition.flooredY != 0)
                 {
-                    print("--- DRAWING A NEW COMPONENT ---")
-                    print(" ")
-                    print("Number in 2D array :: \(model.gameGrid[Int(flooredY)][Int(flooredX)])")
-                    print(" ")
-                    let i = Float(flooredX * 32) // location of x tap
-                    let k = Float(flooredY * 32) // location of y tap
-                    let w = Float(glkView.frame.size.width)
-                    let h = Float(glkView.frame.size.height)
-                    
-                    
-                    // START -- DEBUG PORTION
-                    
-                    // x = -1.0 + i * (2.0 / w) + (1.0 / w) = (2.0 * i + 1.0) / w - 1.0
-                    // y = -1.0 + k * (2.0 / h) + (1.0 / h) = (2.0 * k + 1.0) / h - 1.0
-                    
-                    // i = (w / 2)(x + 1)
-                    // k = (h - h * x) / 2
-                    
-                    //                let i = Float(xy.x) // location of tap
-                    //                let k = Float(xy.y) // location of tap
-                    //                let w = Float(glkView.frame.size.width)
-                    //                let h = Float(glkView.frame.size.height)
-                    
                     var component = Sprite()
                     switch model.componentValue{
                     case 0:
                         component = CircleBumper()
-                        component.setHitbox(x: flooredX, y: flooredY)
                     case 1:
                         component = TriangleBumper()
-                        component.setHitbox(x: flooredX, y: flooredY)
                     case 2:
                         component = Peg()
-                        component.setHitbox(x: flooredX, y: flooredY)
                     case 3:
                         component = Flag()
-                        component.setHitbox(x: flooredX, y: flooredY)
                     case 4:
                         component = Ball()
-                        component.setHitbox(x: flooredX, y: flooredY)
                     default:
                         component = WallSprite()
-                        component.setHitbox(x: flooredX, y: flooredY)
                     }
-                    
-                    let gridX = (2.0 * i + 1.0) / w - 1.0 //(2.0 * i) / w - 1.0
-                    let gridY = (-2.0 * k + 1.0) / h + 1.0 //(-2.0 * k) / h + 1.0
-                    
-                    component.positionX = gridX + 0.05
-                    component.positionY = gridY + -0.05
-                    
-                    print("X in gl: \(gridX)")
-                    print("Y in gl: \(gridY)")
-                    print("GridX: \(model.gridX)")
-                    print("GridY: \(model.gridY)")
-                    print("Pos X: \(component.positionX)")
-                    print("Pos Y: \(component.positionY)")
-                    
-                    // component.positionX =
-                    // component.positionY =
-                    
+                    component.setHitbox(x: compPosition.flooredX, y: compPosition.flooredY)
+                    component.positionX = compPosition.gridX
+                    component.positionY = compPosition.gridY
                     components.append(component)
-                    drawComponents()
-                }
-                // END -- DEBUG PORTION
-                else
-                {
-                    print(" ")
-                    print(" --- DIDN'T DRAW A NEW COMPONENT ---")
-                    print(" ")
-                    print("Number in 2D array :: \(model.gameGrid[Int(flooredY)][Int(flooredX)])")
-                    
-                    let i = Float(flooredX * 32) // location of x tap
-                    let k = Float(flooredY * 32) // location of y tap
-                    let w = Float(glkView.frame.size.width)
-                    let h = Float(glkView.frame.size.height)
-                    let gridX = (2.0 * i + 1.0) / w - 1.0 //(2.0 * i) / w - 1.0
-                    let gridY = (-2.0 * k + 1.0) / h + 1.0 //(-2.0 * k) / h + 1.0
-                    print("X in gl: \(gridX)")
-                    print("Y in gl: \(gridY)")
                 }
             }
-            else // Pick the compoent to be placed
-            {
-                for i in 0 ..< self.hitboxesOfAddableComponents.count
-                {
-                    if (self.hitboxesOfAddableComponents[i].contains((dummy?.location(in: glkView))!))
-                    {
-                        model.componentSelected = true
-                        print("Tapped on item at index: \(i)")
-                        model.componentValue = i
-                    }
-                }
-            }
-        }
-        else // play mode time to shoot balls around
-        {
-            print("PLAY TIME BOOOOI")
         }
     }
     
@@ -365,9 +423,7 @@ class ViewController: GLKViewController {
     
     override func  touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.model.touchesEnded(touches)
-//        let touch = touches.first
-//        let touchloc = touch?.location(in: glkView)
-//        print("\(touchloc)")
+
     }
     
     fileprivate func debugDrawOfSorts(x: Int, y: Int, spr: Sprite) {
@@ -375,18 +431,14 @@ class ViewController: GLKViewController {
         spr.setQuadVertices()
         let i = Float(x * 32) // location of x tap
         let k = Float(y * 32) // location of y tap
-//        print("Grid Pixel X: \(i)")
-//        print("Grid Pixel X: \(k)")
+
         let w = Float(glkView.frame.size.width)
         let h = Float(glkView.frame.size.height)
         
         let gridX = (2.0 * i + 1.0) / w - 1.0  //(2.0 * i) / w - 1.0
         let gridY = (-2.0 * k + 1.0) / h + 1.0 //(-2.0 * k) / h + 1.0
-//        print("X in gl: \(gridX)")
-//        print("Y in gl: \(gridY)")
         spr.positionX = gridX + 0.05
         spr.positionY = gridY + -0.05
-//        component.setTextureVertices(x: 627, y: 0, w: 32, h: 32)
         baseComponents.append(spr)
     }
     
@@ -406,9 +458,9 @@ class ViewController: GLKViewController {
             let test = TrayComponent()
 //            test.setHitbox(x: 8 * 32, y: add * 32)
             test.hitbox = CGRect(x: 7 * 32 , y: add * 32, width: 96.0, height: 96.0)
-            if(self.hitboxesOfAddableComponents.count != 5)
+            if(model.hitboxesOfAddableComponents.count != 5)
             {
-                self.hitboxesOfAddableComponents.append(test.hitbox)
+                model.hitboxesOfAddableComponents.append(test.hitbox)
             }
             test.setTextureVertices(x: textureFloatArray[i][0], y: textureFloatArray[i][1], w: textureFloatArray[i][2], h: textureFloatArray[i][3])
             debugDrawOfSorts(x: 8, y: Int(add), spr: test)
