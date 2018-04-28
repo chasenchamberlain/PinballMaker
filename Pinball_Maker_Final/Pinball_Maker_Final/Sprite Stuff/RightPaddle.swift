@@ -30,12 +30,10 @@ class RightPaddle: Sprite{
             1.0, 0.0, // texture
         ]
         let verts: [Float] = self.getPositionVertices()
-        self.width = 78.0
-        self.height = 27.0
+        self.width = 160.0
+        self.height = 32.0
         self.setQuadVertices()
-        self.positionX = 0.0
-        self.positionY = 0.0
-        self.setTextureVertices(x: 277, y: 3, w: 78, h: 27)
+        self.setTextureVertices(x: 672, y: 0, w: 160, h: 32)
         
         self.vertices = verts
         print(" ") // helps readability

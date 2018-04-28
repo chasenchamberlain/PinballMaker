@@ -1,17 +1,16 @@
 //
-//  LeftPaddle.swift
+//  Plunger.swift
 //  Pinball_Maker_Final
 //
-//  Created by Chasen Chamberlain on 4/27/18.
+//  Created by Chasen Chamberlain on 4/28/18.
 //  Copyright © 2018 Chasen Chamberlain. All rights reserved.
 //
 
 import GLKit
 
-class LeftPaddle: Sprite{
+class Plunger: Sprite{
     override init() {
         super.init()
-        //        super.init(image: UIImage(named: "thermostat")!)
         self.quad = [
             0.0, 0.0,
             1.0, 0.0, 1.0, 0.0, // color
@@ -30,11 +29,11 @@ class LeftPaddle: Sprite{
             1.0, 0.0, // texture
         ]
         let verts: [Float] = self.getPositionVertices()
-        self.width = 160.0
-        self.height = 32.0
+        self.width = 28.0
+        self.height = 9.0
         self.setQuadVertices()
         
-        self.setTextureVertices(x: 832, y: 0, w: 160, h: 32)
+        self.setTextureVertices(x: 32, y: 23, w: 28, h: 9)
         
         self.vertices = verts
         print(" ") // helps readability

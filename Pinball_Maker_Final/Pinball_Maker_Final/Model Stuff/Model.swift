@@ -35,6 +35,12 @@ class Model
     // Boolean switch for to display components on the tray or not
     var displayTray = false
     
+    // Boolean switch to remove the tray
+    var removeTray = false
+    
+    // Boolean switch add the tray
+    var addTray = false
+    
     // Boolean switch for play or edit, we start in edit mode
     var editState = true
     
@@ -182,10 +188,12 @@ class Model
             if(self.editState)
             {
                 self.editState = false
+                self.removeTray = true
             }
             else
             {
                 self.editState = true
+                self.addTray = true
             }
             swapTextures = true
         }
@@ -262,12 +270,29 @@ class Model
             if(self.hitboxRightPaddleArea.contains(pixelTouch))
             {
                 print("Tap right")
+                self.paddleRightUp = true
+
             }
         }
     }
     
     func touchesMoved(_ touches: Set<UITouch>){}
-    func touchesEnded(_ touches: Set<UITouch>){}
+    func touchesEnded(_ touches: Set<UITouch>, pixelTouch: CGPoint){
+        if(!self.editState)
+        {
+            if(self.hitboxLeftPaddleArea.contains(pixelTouch))
+            {
+                print("Tap left")
+                self.paddleLeftUp = false
+            }
+            
+            if(self.hitboxRightPaddleArea.contains(pixelTouch))
+            {
+                print("Tap right")
+                self.paddleRightUp = false
+            }
+        }
+    }
     
     func getComponentCalculations() -> (gridX: Float, gridY: Float, flooredX: CGFloat, flooredY: CGFloat){
         

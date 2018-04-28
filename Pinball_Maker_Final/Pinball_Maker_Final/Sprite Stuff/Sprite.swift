@@ -38,11 +38,11 @@ class Sprite {
     var modelViewMatrix: GLKMatrix4 {
         var modelMatrix : GLKMatrix4 = GLKMatrix4Identity
         modelMatrix = GLKMatrix4Translate(modelMatrix, self.positionX, self.positionY, 0)
-        modelMatrix = GLKMatrix4Rotate(modelMatrix, GLKMathDegreesToRadians(self.rotationX), 1, 0, 0)
+        modelMatrix = GLKMatrix4Rotate(modelMatrix, self.rotationX, 1, 0, 0)
         modelMatrix = GLKMatrix4Rotate(modelMatrix, self.rotationY, 0, 1, 0)
-        modelMatrix = GLKMatrix4Rotate(modelMatrix, self.rotationZ, 0, 0, 1)
-        modelMatrix = GLKMatrix4Scale(modelMatrix, self.scaleX, self.scaleY, 1)
-//        modelMatrix = GLKMatrix4Translate(modelMatrix, -self.positionX, -self.positionY, -0)
+        modelMatrix = GLKMatrix4Rotate(modelMatrix, GLKMathDegreesToRadians(self.rotationZ), 1, 1, 1)
+        modelMatrix = GLKMatrix4Scale(modelMatrix, self.scaleX, self.scaleY, 0)
+//        modelMatrix = GLKMatrix4Translate(modelMatrix, self.positionX, self.positionY, -0)
 
 
 //        modelMatrix = GLKMatrix4Translate(modelMatrix, 0, 0, 0)
@@ -252,7 +252,7 @@ class Sprite {
     // Method to assist in switching textures from the sprite sheet
     public func setTextureVertices(x: Float, y: Float, w: Float, h: Float){
 
-        let textureSizeX: Float = 736.0
+        let textureSizeX: Float = 1024.0
         let textureSizeY: Float = 32.0
 //        let addedY = y + h
         let adjustedX: Float = x/textureSizeX
