@@ -150,7 +150,6 @@ class ViewController: GLKViewController {
         
         self.ball.positionX = updatedBallPosition.x
         self.ball.positionY = updatedBallPosition.y
-        print("The ball Y APARENTLY: \(ball.positionY)")
     }
 
     
@@ -450,7 +449,8 @@ class ViewController: GLKViewController {
                     default:
                         component = WallSprite()
                     }
-                    component.setHitbox(x: compPosition.flooredX, y: compPosition.flooredY)
+                    component.setHitbox(x: compPosition.flooredX * 32, y: compPosition.flooredY * 32)
+                    model.hitboxesOfAddedComponents.append(component.hitbox)
                     component.positionX = compPosition.gridX
                     component.positionY = compPosition.gridY
                     components.append(component)
@@ -501,9 +501,9 @@ class ViewController: GLKViewController {
             let test = TrayComponent()
 //            test.setHitbox(x: 8 * 32, y: add * 32)
             test.hitbox = CGRect(x: 7 * 32 , y: add * 32, width: 96.0, height: 96.0)
-            if(model.hitboxesOfAddableTrayComponents.count != 5)
+            if(model.hitboxesOfTraySelections.count != 5)
             {
-                model.hitboxesOfAddableTrayComponents.append(test.hitbox)
+                model.hitboxesOfTraySelections.append(test.hitbox)
             }
             test.setTextureVertices(x: textureFloatArray[i][0], y: textureFloatArray[i][1], w: textureFloatArray[i][2], h: textureFloatArray[i][3])
             debugDrawOfSorts(x: 8, y: Int(add), spr: test)

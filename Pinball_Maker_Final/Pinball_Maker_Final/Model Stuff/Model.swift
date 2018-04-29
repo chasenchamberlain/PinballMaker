@@ -26,8 +26,8 @@ class Model
     var gameGrid = [[Int]]()
     
     // Velocity of the ball
-    var velocityX: Float = 0.0
-    var velocityY: Float = 0.2
+    var velocityX: Float = 0.7
+    var velocityY: Float = 0.0
     var ballRadius = 8
     // TODO: Variable for gravity
     
@@ -67,7 +67,7 @@ class Model
     var componentSelected = false
     
     // Hitboxes for selectable components
-    var hitboxesOfAddableTrayComponents = [CGRect]()
+    var hitboxesOfTraySelections = [CGRect]()
     
     // Button hitboxes, try, and walls
     var hitboxesOfStaticParts = [CGRect]()
@@ -102,13 +102,11 @@ class Model
         
         self.hitboxLeftPaddleArea = CGRect(x: 0, y: self.gameAreaHeight/2, width: self.gameAreaWidth/2, height: self.gameAreaHeight/2)
         self.hitboxRightPaddleArea = CGRect(x: self.gameAreaWidth/2, y: self.gameAreaHeight/2, width: self.gameAreaWidth/2, height: self.gameAreaHeight/2)
-        let rightWall = CGRect()
-        let leftWall = CGRect()
+        let leftWall = CGRect(x: 0, y: 64, width: 32, height: self.gameAreaHeight - 64)
         let topWall = CGRect(x: 0, y: 64, width: self.gameAreaWidth, height: 32)
-        let plungerWall = CGRect()
+        let plungerWall = CGRect(x: 320, y: 160, width: 32, height: 507)
         
         hitboxesOfStaticParts.append(topWall)
-        hitboxesOfStaticParts.append(rightWall)
         hitboxesOfStaticParts.append(leftWall)
         hitboxesOfStaticParts.append(plungerWall)
         // order of adding is critical, top, right, left, plunger
@@ -188,7 +186,7 @@ class Model
     
     func touchesBegan(_ touches: Set<UITouch>, pixelTouch: CGPoint){
 
-        if (self.hitboxesOfStaticParts[4].contains(pixelTouch) || self.hitboxesOfStaticParts[5].contains(pixelTouch)) // play or edit button
+        if (self.hitboxesOfStaticParts[3].contains(pixelTouch) || self.hitboxesOfStaticParts[4].contains(pixelTouch)) // play or edit button
         {
             if(self.editState)
             {
@@ -210,7 +208,7 @@ class Model
             print("Y in Grid before round: \((pixelTouch.y/32.0))")
             
             // This is the tray sliding in and out stuff.
-            if(self.hitboxesOfStaticParts[7].contains(pixelTouch)) // tray tap
+            if(self.hitboxesOfStaticParts[6].contains(pixelTouch)) // tray tap
             {
                 if(self.trayOut)
                 {
@@ -228,13 +226,17 @@ class Model
             }
             
             
-            if(self.hitboxesOfStaticParts[6].contains(pixelTouch)) // undo button
+            if(self.hitboxesOfStaticParts[5].contains(pixelTouch)) // undo button
             {
                 self.undoComponet = true
                 if(!gridCordinatesOfRecentlyAddedComponents.isEmpty)
                 {
                     let toDestroy = gridCordinatesOfRecentlyAddedComponents.removeLast()
                     self.gameGrid[toDestroy[0]][toDestroy[1]] = 7
+                }
+                if(!hitboxesOfAddedComponents.isEmpty)
+                {
+                    hitboxesOfAddedComponents.removeLast()
                 }
             }
             
@@ -251,9 +253,9 @@ class Model
             }
             else // Pick the compoent to be placed
             {
-                for i in 0 ..< self.hitboxesOfAddableTrayComponents.count
+                for i in 0 ..< self.hitboxesOfTraySelections.count
                 {
-                    if (self.hitboxesOfAddableTrayComponents[i].contains(pixelTouch))
+                    if (self.hitboxesOfTraySelections[i].contains(pixelTouch))
                     {
                         self.componentSelected = true
                         print("Tapped on item at index: \(i)")
@@ -322,64 +324,119 @@ class Model
         return (0, 0, 0, 0)
     }
     
+    func openGLIt(_ x: Float, _ y: Float) -> (x: Float, y: Float)
+    {
+        let i = Float(x * 32) // location of x tap
+        let k = Float(y * 32) // location of y tap
+        let w = Float(gameAreaWidth)
+        let h = Float(gameAreaHeight)
+        var glX = (2.0 * i + 1.0) / w - 1.0 //(2.0 * i) / w - 1.0
+        var glY = (-2.0 * k + 1.0) / h + 1.0 //(-2.0 * k) / h + 1.0
+        glX = glX + 0.05
+        glY = glY + -0.05
+        
+        return (glX, glY)
+    }
+    
     // Calculates all collision physic stuff and returns it to the view to update accordingly
     func collisionCheck(posX: Float, posY: Float, dt: TimeInterval) -> (x: Float, y: Float){
+        // move the ball position
         var ballX = posX + self.velocityX * Float(dt)
         var ballY = posY + self.velocityY * Float(dt)
-        print("The dumbAss Y is as follows:")
-        print(ballY)
-        print("")
+        
         let dumbX = gameAreaWidth * ((CGFloat(ballX - 0.05) * gameAreaWidth)/gameAreaWidth)
         let dumbY = gameAreaHeight * -((CGFloat(ballY + 0.05) * gameAreaHeight)/gameAreaHeight)
         
         let xPix: CGFloat = (dumbX + gameAreaWidth - 1)/2
         let yPix: CGFloat = (dumbY + gameAreaHeight + 1)/2
-        
+
+
         let ballHitbox: CGRect = CGRect(x: xPix, y: yPix, width: 16, height: 16)
-        print("\(ballHitbox)")
-        if(hitboxesOfStaticParts[0].intersects(ballHitbox))
-        {
-            self.velocityY = self.velocityY * -1.0
-        }
         
         let xG: Int = Int(round(xPix/32))
         let yG: Int = Int(round(yPix/32))
-//        let ballHitboxPos: GLKVector2 = GLKVector2Make(Float(xPix), Float(yPix))
-//        // check for collisions with walls
-//        if(velocityX == 0)
-//        {
-//            let checkMe = gameGrid[yG - 1][xG]
-//            let currentRow = yG
-//            if(checkMe != 7)
-//            {
-//                self.velocityY = -velocityY
-//                // switch statement for different components
-//                switch checkMe
-//                {
-//                case 0: // wall
-//                    if (currentRow - 1 <= 4) // top wall
-//                    {
-//                        let topWall = hitboxesOfStaticParts[4]
-//                        let rectCenter: GLKVector2 = GLKVector2Make(Float(topWall.midX), Float(topWall.midY))
-//                        let dist = GLKVector2Distance(ballHitboxPos, rectCenter)
-//
-//                    }
-//
-//                default:
-//                    print("neat")
-//                }
-//                // math portion between points.
-//            }
-//        }
-        // check for collisions with components
-        // check for collisions with paddles
-        // check if went out of bounds
         
-//        var ballX = posX + self.velocityX * Float(dt)
-//        var ballY = posY + self.velocityY * Float(dt)
+        // check for if it was a plunger shot so it will shoot it to the left
+        
+        // check for collisions on all hitboxes.
+        for i in 0 ..< 3
+        {
+            let checkMe = self.hitboxesOfStaticParts[i]
+            if(ballHitbox.intersects(checkMe))
+            {
+                print("COLLISIONS")
+                print("The glY \(ballY), The glX \(ballX)")
+                print("")
+                print("The Y pixel \(xPix), The X pixel \(yPix)")
+                print("")
+                switch i
+                {
+                case 0:
+                    self.velocityY *= -1
+                case 1:
+                    self.velocityX *= -1
+                case 2:
+                    self.velocityX *= -1
+                default:
+                    print("default")
+                }
+            }
+        }
+        
+        for i in 0 ..< self.hitboxesOfAddedComponents.count
+        {
+            let checkMe = self.hitboxesOfAddedComponents[i]
+            let gridLocation = self.gridCordinatesOfRecentlyAddedComponents[i]
+            let gridValue = gameGrid[gridLocation[0]][gridLocation[1]]
+            if(ballHitbox.intersects(checkMe))
+            {
+                print("COLLISIONS")
+                print("The glY \(ballY), The glX \(ballX)")
+                print("")
+                print("The Y pixel \(xPix), The X pixel \(yPix)")
+                print("")
+                switch gridValue
+                {
+                case 0: // Circle bumper
+                    print("Circle bumper")
+                    self.velocityX *= -1
+                case 1: // Triangle bumper L
+                    print("Triangle bumper L")
+                    self.velocityY *= -1
+                case 2: // Peg
+                    print("Peg")
+                    self.velocityX *= -1
+                case 3: // Flag
+                    print("Flag")
+                case 4: // Triangle bumper R
+                    print("Triangle bumper R")
+                    self.velocityX *= -1
+                    self.velocityY *= -1
+
+                default:
+                    print("Default wall")
+                }
+            }
+        }
+        
+        // check for out of bounds
+        if(yPix >= gameAreaHeight)
+        {
+            // reset the ball
+        }
+        // respond if necessary to out of bounds or collisions
+
+//        ballX = posX + self.velocityX * Float(dt)
+//        ballY = posY + self.velocityY * Float(dt)
+        
+        // send the info back and draw
         return(ballX, ballY)
     }
 }
 
+struct Vector2D
+{
+    
+}
 // controls all interactions between touches and collisions between the view controller nad the game view
 
