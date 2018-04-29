@@ -25,6 +25,10 @@ class Model
     // 2D array that represents the grid of where components are represented on the screen.
     var gameGrid = [[Int]]()
     
+    // Velocity of the ball
+    var velocityX: Float = 0.0
+    var velocityY: Float = 0.5
+    var ballRadius = 8
     // TODO: Variable for gravity
     
     // TODO: Variable for different objects forces
@@ -63,14 +67,18 @@ class Model
     var componentSelected = false
     
     // Hitboxes for selectable components
-    var hitboxesOfAddableComponents = [CGRect]()
+    var hitboxesOfAddableTrayComponents = [CGRect]()
     
-    // Button hitboxes
+    // Button hitboxes, try, and walls
     var hitboxesOfStaticParts = [CGRect]()
+    
+    // Hitboxes for any added components
+    var hitboxesOfAddedComponents = [CGRect]()
     
     var hitboxLeftPaddleArea = CGRect()
     var hitboxRightPaddleArea = CGRect()
     
+    // Grid cordinates of where all my components are placed
     var gridCordinatesOfRecentlyAddedComponents = [[Int]]()
     
     // Method to calculate touch location acording to game area
@@ -80,19 +88,6 @@ class Model
         let y = (touchLocation.y) // ratio
         return CGPoint(x: x, y: y)
     }
-    // TODO: Method to assit in pivoting the paddle
-    
-    // TODO: Method to update sprite accoring to its position acording to physics etc
-    
-    // TODO: Maybe same method as above, but a method for updating hitbox
-    
-    // TODO: Large logic method for checking hitbox locations in regards to the ball
-    
-    // TODO: Method to set up scene for playing/after losses this happens also
-    
-    // TODO: Method to set up scene for editing
-    
-    // TODO: Method to slide a tray in and out
     
     // Setup grid dimensions
     func setupGridDimensions(){
@@ -101,12 +96,22 @@ class Model
     }
     
     // Establish the starting game grid
-    func setupTheGrid(){
+    init(){
         setupGridDimensions()
 //        self.gameGrid = [[Int]](repeating: [Int](repeating: -1, count: self.gridX), count: self.gridY)
         
         self.hitboxLeftPaddleArea = CGRect(x: 0, y: self.gameAreaHeight/2, width: self.gameAreaWidth/2, height: self.gameAreaHeight/2)
         self.hitboxRightPaddleArea = CGRect(x: self.gameAreaWidth/2, y: self.gameAreaHeight/2, width: self.gameAreaWidth/2, height: self.gameAreaHeight/2)
+        let rightWall = CGRect()
+        let leftWall = CGRect()
+        let topWall = CGRect(x: 0, y: 128, width: self.gameAreaWidth, height: 32)
+        let plungerWall = CGRect()
+        
+        hitboxesOfStaticParts.append(topWall)
+        hitboxesOfStaticParts.append(rightWall)
+        hitboxesOfStaticParts.append(leftWall)
+        hitboxesOfStaticParts.append(plungerWall)
+        // order of adding is critical, top, right, left, plunger
 
         var yRow = 0
         while(yRow < self.gridY)
@@ -183,7 +188,7 @@ class Model
     
     func touchesBegan(_ touches: Set<UITouch>, pixelTouch: CGPoint){
 
-        if (self.hitboxesOfStaticParts[0].contains(pixelTouch) || self.hitboxesOfStaticParts[1].contains(pixelTouch)) // play or edit button
+        if (self.hitboxesOfStaticParts[4].contains(pixelTouch) || self.hitboxesOfStaticParts[5].contains(pixelTouch)) // play or edit button
         {
             if(self.editState)
             {
@@ -205,7 +210,7 @@ class Model
             print("Y in Grid before round: \((pixelTouch.y/32.0))")
             
             // This is the tray sliding in and out stuff.
-            if(self.hitboxesOfStaticParts[3].contains(pixelTouch)) // tray tap
+            if(self.hitboxesOfStaticParts[7].contains(pixelTouch)) // tray tap
             {
                 if(self.trayOut)
                 {
@@ -223,7 +228,7 @@ class Model
             }
             
             
-            if(self.hitboxesOfStaticParts[2].contains(pixelTouch)) // undo button
+            if(self.hitboxesOfStaticParts[6].contains(pixelTouch)) // undo button
             {
                 self.undoComponet = true
                 if(!gridCordinatesOfRecentlyAddedComponents.isEmpty)
@@ -246,9 +251,9 @@ class Model
             }
             else // Pick the compoent to be placed
             {
-                for i in 0 ..< self.hitboxesOfAddableComponents.count
+                for i in 0 ..< self.hitboxesOfAddableTrayComponents.count
                 {
-                    if (self.hitboxesOfAddableComponents[i].contains(pixelTouch))
+                    if (self.hitboxesOfAddableTrayComponents[i].contains(pixelTouch))
                     {
                         self.componentSelected = true
                         print("Tapped on item at index: \(i)")
@@ -317,6 +322,61 @@ class Model
         return (0, 0, 0, 0)
     }
     
+    // Calculates all collision physic stuff and returns it to the view to update accordingly
+    func collisionCheck(posX: Float, posY: Float, dt: TimeInterval) -> (x: Float, y: Float){
+//        var ballX = posX + self.velocityX * Float(dt)
+//        var ballY = posY + self.velocityY * Float(dt)
+        
+        let dumbX = gameAreaWidth * ((CGFloat(posX - 0.05) * 32)/gameAreaWidth)
+        let dumbY = gameAreaHeight * -((CGFloat(posY + 0.05) * 32)/gameAreaHeight)
+        
+        let xPix: CGFloat = (dumbX + gameAreaWidth - 1)/2
+        let yPix: CGFloat = (dumbY + gameAreaHeight + 1)/2
+        
+        let ballHitbox: CGRect = CGRect(x: xPix, y: yPix, width: 16, height: 16)
+        print("\(ballHitbox)")
+        if(hitboxesOfStaticParts[0].intersects(ballHitbox))
+        {
+            self.velocityY = self.velocityY * -1.0
+        }
+        
+        let xG: Int = Int(round(xPix/32))
+        let yG: Int = Int(round(yPix/32))
+//        let ballHitboxPos: GLKVector2 = GLKVector2Make(Float(xPix), Float(yPix))
+//        // check for collisions with walls
+//        if(velocityX == 0)
+//        {
+//            let checkMe = gameGrid[yG - 1][xG]
+//            let currentRow = yG
+//            if(checkMe != 7)
+//            {
+//                self.velocityY = -velocityY
+//                // switch statement for different components
+//                switch checkMe
+//                {
+//                case 0: // wall
+//                    if (currentRow - 1 <= 4) // top wall
+//                    {
+//                        let topWall = hitboxesOfStaticParts[4]
+//                        let rectCenter: GLKVector2 = GLKVector2Make(Float(topWall.midX), Float(topWall.midY))
+//                        let dist = GLKVector2Distance(ballHitboxPos, rectCenter)
+//
+//                    }
+//
+//                default:
+//                    print("neat")
+//                }
+//                // math portion between points.
+//            }
+//        }
+        // check for collisions with components
+        // check for collisions with paddles
+        // check if went out of bounds
+        
+        var ballX = posX + self.velocityX * Float(dt)
+        var ballY = posY + self.velocityY * Float(dt)
+        return(ballX, ballY)
+    }
 }
 
 // controls all interactions between touches and collisions between the view controller nad the game view

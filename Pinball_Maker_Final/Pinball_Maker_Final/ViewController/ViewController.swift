@@ -25,7 +25,8 @@ class ViewController: GLKViewController {
     var undoButton: UndoButton!
     var leftPaddle: LeftPaddle!
     var rightPaddle: RightPaddle!
-        
+    var ball: Ball!
+
     var baseComponents = [Sprite]()
     var components = [Sprite]()
     
@@ -51,6 +52,7 @@ class ViewController: GLKViewController {
         self.undoButton = UndoButton()
         self.leftPaddle = LeftPaddle()
         self.rightPaddle = RightPaddle()
+        self.ball = Ball()
         debugDrawOfSorts(x: 2, y: 17, spr: leftPaddle)
         debugDrawOfSorts(x: 8, y: 17, spr: rightPaddle)
         setup()
@@ -110,8 +112,9 @@ class ViewController: GLKViewController {
                 }
             }
         }
-        else
+        else // Playing
         {
+            checkBall(timeSinceLastDraw)
             if(model.paddleLeftUp)
             {
                 if(leftPaddle.rotationZ < 25)
@@ -142,13 +145,18 @@ class ViewController: GLKViewController {
                 }
             }
         }
-        
-        
-        
     }
     
+    func checkBall(_ dt: TimeInterval) {
+        let updatedBallPosition = model.collisionCheck(posX: self.ball.positionX, posY: self.ball.positionY, dt: dt)
+        
+        self.ball.positionX = updatedBallPosition.x
+        self.ball.positionY = updatedBallPosition.y
+    }
+
+    
     override func glkView(_ view: GLKView, drawIn rect: CGRect) {
-        glClearColor(0.0, 0.0, 0.0, 1.0)
+        glClearColor(0.5, 0.5, 0.5, 1.0)
         glClear(GLbitfield(GL_COLOR_BUFFER_BIT))
         
         update()
@@ -158,11 +166,11 @@ class ViewController: GLKViewController {
     // Draws all the components associated with the view.
     func drawComponents()
     {
-        for comp in components
+        for comp in baseComponents
         {
             comp.draw()
         }
-        for comp in baseComponents
+        for comp in components
         {
             comp.draw()
         }
@@ -176,7 +184,6 @@ class ViewController: GLKViewController {
         model.hitboxesOfStaticParts.append(editButton.hitbox)
         model.hitboxesOfStaticParts.append(undoButton.hitbox)
         model.hitboxesOfStaticParts.append(tray.hitbox)
-        model.setupTheGrid()
         let gameScreenBackground = GameScreen()
 //        let rightWall =  WallSprite()
 //        components.append(gameScreenBackground)
@@ -219,6 +226,9 @@ class ViewController: GLKViewController {
         {
             baseComponents.removeLast()
             let plunger = Plunger()
+            ball.positionX = 0 + 0.05
+            ball.positionY = 0 - 0.05
+            components.append(ball)
             debugDrawOfSorts(x: model.gridX - 2, y: model.gridY - 3, spr: plunger)
             model.removeTray = false
         }
@@ -492,9 +502,9 @@ class ViewController: GLKViewController {
             let test = TrayComponent()
 //            test.setHitbox(x: 8 * 32, y: add * 32)
             test.hitbox = CGRect(x: 7 * 32 , y: add * 32, width: 96.0, height: 96.0)
-            if(model.hitboxesOfAddableComponents.count != 5)
+            if(model.hitboxesOfAddableTrayComponents.count != 5)
             {
-                model.hitboxesOfAddableComponents.append(test.hitbox)
+                model.hitboxesOfAddableTrayComponents.append(test.hitbox)
             }
             test.setTextureVertices(x: textureFloatArray[i][0], y: textureFloatArray[i][1], w: textureFloatArray[i][2], h: textureFloatArray[i][3])
             debugDrawOfSorts(x: 8, y: Int(add), spr: test)
@@ -611,7 +621,7 @@ class ViewController: GLKViewController {
                     //                    print("Y in gl: \(gridY)")
                     component.positionX = gridX + 0.05
                     component.positionY = gridY + -0.05
-                    baseComponents.append(component)
+//                    baseComponents.append(component)
                 }
             }
         }
