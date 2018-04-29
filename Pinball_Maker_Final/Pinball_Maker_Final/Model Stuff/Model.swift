@@ -27,7 +27,7 @@ class Model
     
     // Velocity of the ball
     var velocityX: Float = 0.0
-    var velocityY: Float = 0.5
+    var velocityY: Float = 0.2
     var ballRadius = 8
     // TODO: Variable for gravity
     
@@ -104,7 +104,7 @@ class Model
         self.hitboxRightPaddleArea = CGRect(x: self.gameAreaWidth/2, y: self.gameAreaHeight/2, width: self.gameAreaWidth/2, height: self.gameAreaHeight/2)
         let rightWall = CGRect()
         let leftWall = CGRect()
-        let topWall = CGRect(x: 0, y: 128, width: self.gameAreaWidth, height: 32)
+        let topWall = CGRect(x: 0, y: 64, width: self.gameAreaWidth, height: 32)
         let plungerWall = CGRect()
         
         hitboxesOfStaticParts.append(topWall)
@@ -324,11 +324,13 @@ class Model
     
     // Calculates all collision physic stuff and returns it to the view to update accordingly
     func collisionCheck(posX: Float, posY: Float, dt: TimeInterval) -> (x: Float, y: Float){
-//        var ballX = posX + self.velocityX * Float(dt)
-//        var ballY = posY + self.velocityY * Float(dt)
-        
-        let dumbX = gameAreaWidth * ((CGFloat(posX - 0.05) * 32)/gameAreaWidth)
-        let dumbY = gameAreaHeight * -((CGFloat(posY + 0.05) * 32)/gameAreaHeight)
+        var ballX = posX + self.velocityX * Float(dt)
+        var ballY = posY + self.velocityY * Float(dt)
+        print("The dumbAss Y is as follows:")
+        print(ballY)
+        print("")
+        let dumbX = gameAreaWidth * ((CGFloat(ballX - 0.05) * gameAreaWidth)/gameAreaWidth)
+        let dumbY = gameAreaHeight * -((CGFloat(ballY + 0.05) * gameAreaHeight)/gameAreaHeight)
         
         let xPix: CGFloat = (dumbX + gameAreaWidth - 1)/2
         let yPix: CGFloat = (dumbY + gameAreaHeight + 1)/2
@@ -373,8 +375,8 @@ class Model
         // check for collisions with paddles
         // check if went out of bounds
         
-        var ballX = posX + self.velocityX * Float(dt)
-        var ballY = posY + self.velocityY * Float(dt)
+//        var ballX = posX + self.velocityX * Float(dt)
+//        var ballY = posY + self.velocityY * Float(dt)
         return(ballX, ballY)
     }
 }

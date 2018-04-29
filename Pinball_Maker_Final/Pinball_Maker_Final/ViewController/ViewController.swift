@@ -59,8 +59,6 @@ class ViewController: GLKViewController {
         glEnable(GLenum(GL_BLEND))
         glBlendFunc(GLenum(GL_SRC_ALPHA), GLenum(GL_ONE_MINUS_SRC_ALPHA))
         
-//        let thing = CGRect(x: -85, y: -148, width: 170, height: 296)
-//        let hit = Hitbox(name: "Meh", w: 170, h: 296, x: -85, y: -148)
         print("2D ARRAY DIMENSIONS --> W:\(glkView.frame.size.width/32) H:\(glkView.frame.size.height/32)")
 
     }
@@ -152,6 +150,7 @@ class ViewController: GLKViewController {
         
         self.ball.positionX = updatedBallPosition.x
         self.ball.positionY = updatedBallPosition.y
+        print("The ball Y APARENTLY: \(ball.positionY)")
     }
 
     
