@@ -25,6 +25,7 @@ class ViewController: GLKViewController {
     var undoButton: UndoButton!
     var leftPaddle: LeftPaddle!
     var rightPaddle: RightPaddle!
+    var plunger: Plunger!
     var ball: Ball!
 
     var baseComponents = [Sprite]()
@@ -53,6 +54,7 @@ class ViewController: GLKViewController {
         self.leftPaddle = LeftPaddle()
         self.rightPaddle = RightPaddle()
         self.ball = Ball()
+        self.plunger = Plunger()
         debugDrawOfSorts(x: 2, y: 17, spr: leftPaddle)
         debugDrawOfSorts(x: 8, y: 17, spr: rightPaddle)
         setup()
@@ -112,7 +114,13 @@ class ViewController: GLKViewController {
         }
         else // Playing
         {
+            resetTheBallAndFlipperTexture()
             checkBall(timeSinceLastDraw)
+            
+            if(!plunger.cycled)
+            {
+                plunger.cycleTextures()
+            }
             if(model.paddleLeftUp)
             {
                 if(leftPaddle.rotationZ < 25)
@@ -219,13 +227,11 @@ class ViewController: GLKViewController {
         }
     }
     
+    // Setups the view for either playing or editing
     private func setupForPlayOrEdit(){
         if(model.removeTray)
         {
             baseComponents.removeLast()
-            let plunger = Plunger()
-            ball.positionX = 0 + 0.05
-            ball.positionY = 0 - 0.05
             components.append(ball)
             debugDrawOfSorts(x: model.gridX - 2, y: model.gridY - 3, spr: plunger)
             model.removeTray = false
@@ -235,12 +241,25 @@ class ViewController: GLKViewController {
         {
             self.tray = Tray()
             baseComponents.removeLast()
+            components.removeLast()
             baseComponents.append(tray)
             model.addTray = false
         }
     }
+
+    private func resetTheBallAndFlipperTexture()
+    {
+        if(model.reset)
+        {
+            let pos = model.openGLIt(11, 17)
+            ball.positionX = pos.x
+            ball.positionY = pos.y
+            plunger.cycleTextures()
+            model.reset = false
+        }
+    }
     
-    // MARK: - Touches
+    // Removes the last component, initiated by the model boolean switch values
     fileprivate func undoComponent() {
         // make sure to stop undos at a certain point.
         if(model.undoComponet)
