@@ -200,6 +200,8 @@ class Sprite {
             glBindTexture(GLenum(GL_TEXTURE_2D), texture.name)
         }
         glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0, 4)
+        
+        
     }
     
     // Bounding box for collision/clicky things

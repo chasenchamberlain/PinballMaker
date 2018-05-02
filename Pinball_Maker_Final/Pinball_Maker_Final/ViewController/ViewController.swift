@@ -60,7 +60,6 @@ class ViewController: GLKViewController {
         setup()
         glEnable(GLenum(GL_BLEND))
         glBlendFunc(GLenum(GL_SRC_ALPHA), GLenum(GL_ONE_MINUS_SRC_ALPHA))
-        
         print("2D ARRAY DIMENSIONS --> W:\(glkView.frame.size.width/32) H:\(glkView.frame.size.height/32)")
 
     }
@@ -115,7 +114,6 @@ class ViewController: GLKViewController {
         else // Playing
         {
             resetTheBallAndFlipperTexture()
-            checkBall(timeSinceLastDraw)
             
             if(!plunger.cycled)
             {
@@ -125,14 +123,14 @@ class ViewController: GLKViewController {
             {
                 if(leftPaddle.rotationZ < 25)
                 {
-                    leftPaddle.rotationZ += 5
+                    leftPaddle.rotationZ += 6
                 }
             }
             else
             {
                 if(leftPaddle.rotationZ > 0)
                 {
-                    leftPaddle.rotationZ -= 5
+                    leftPaddle.rotationZ -= 6
                 }
             }
             
@@ -140,21 +138,22 @@ class ViewController: GLKViewController {
             {
                 if(rightPaddle.rotationZ > -25)
                 {
-                    rightPaddle.rotationZ -= 5
+                    rightPaddle.rotationZ -= 6
                 }
             }
             else
             {
                 if(rightPaddle.rotationZ < 0)
                 {
-                    rightPaddle.rotationZ += 5
+                    rightPaddle.rotationZ += 6
                 }
             }
+            checkBall(timeSinceLastDraw)
         }
     }
     
     func checkBall(_ dt: TimeInterval) {
-        let updatedBallPosition = model.collisionCheck(posX: self.ball.positionX, posY: self.ball.positionY, dt: dt)
+        let updatedBallPosition = model.collisionCheck(posX: self.ball.positionX, posY: self.ball.positionY, dt: dt, leftFlip: (leftPaddle.positionX, leftPaddle.positionY, leftPaddle.rotationZ), rightFlip: (rightPaddle.positionX, rightPaddle.positionY, rightPaddle.rotationZ) )
         
         self.ball.positionX = updatedBallPosition.x
         self.ball.positionY = updatedBallPosition.y
@@ -180,6 +179,7 @@ class ViewController: GLKViewController {
         {
             comp.draw()
         }
+
     }
     
     // MARK: - Intial Setup
