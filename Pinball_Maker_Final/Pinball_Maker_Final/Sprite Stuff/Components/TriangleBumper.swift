@@ -1,5 +1,5 @@
 //
-//  CircleBumper.swift
+//  TriangleBumper.swift
 //  Pinball_Maker_Final
 //
 //  Created by Chasen Chamberlain on 4/24/18.
@@ -8,7 +8,7 @@
 
 import GLKit
 
-class CircleBumper: Sprite{
+class TriangleBumper: Sprite{
     override init() {
         super.init()
         //        super.init(image: UIImage(named: "thermostat")!)
@@ -34,9 +34,8 @@ class CircleBumper: Sprite{
         self.height = 32.0
         self.setQuadVertices()
         
-        self.setTextureVertices(x: 116, y: 0, w: 32, h: 32)
+        self.setTextureVertices(x: 148, y: 0, w: 32, h: 32)
         
         self.vertices = verts
-        print(" ") // helps readability
     }
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C4285F79209A80B900436541 /* TriangleBumperL.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4285F78209A80B900436541 /* TriangleBumperL.swift */; };
 		C42B9740208EEC59003A1FD2 /* EditButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42B973F208EEC59003A1FD2 /* EditButton.swift */; };
 		C42B9742208EFB1F003A1FD2 /* UndoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42B9741208EFB1F003A1FD2 /* UndoButton.swift */; };
 		C4526F58208978C5004656B2 /* PlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4526F57208978C5004656B2 /* PlayButton.swift */; };
@@ -25,7 +26,6 @@
 		C46F0A482088535E00B93F50 /* WallSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46F0A472088535E00B93F50 /* WallSprite.swift */; };
 		C46F0A4A2088537400B93F50 /* tech-background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C46F0A492088537400B93F50 /* tech-background.jpg */; };
 		C46F0A4C2088537A00B93F50 /* thermostat.png in Resources */ = {isa = PBXBuildFile; fileRef = C46F0A4B2088537A00B93F50 /* thermostat.png */; };
-		C46F0A552088608500B93F50 /* Hitbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46F0A542088608500B93F50 /* Hitbox.swift */; };
 		C48CDD32208F0EB800A57FAD /* TrayComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48CDD31208F0EB800A57FAD /* TrayComponent.swift */; };
 		C4B973B72093D26F0026223E /* Flag.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B973B62093D26F0026223E /* Flag.swift */; };
 		C4B973B92093D27B0026223E /* Peg.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B973B82093D27B0026223E /* Peg.swift */; };
@@ -38,6 +38,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C4285F78209A80B900436541 /* TriangleBumperL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriangleBumperL.swift; sourceTree = "<group>"; };
 		C42B973F208EEC59003A1FD2 /* EditButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditButton.swift; sourceTree = "<group>"; };
 		C42B9741208EFB1F003A1FD2 /* UndoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoButton.swift; sourceTree = "<group>"; };
 		C4526F57208978C5004656B2 /* PlayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayButton.swift; sourceTree = "<group>"; };
@@ -58,7 +59,6 @@
 		C46F0A472088535E00B93F50 /* WallSprite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallSprite.swift; sourceTree = "<group>"; };
 		C46F0A492088537400B93F50 /* tech-background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "tech-background.jpg"; sourceTree = "<group>"; };
 		C46F0A4B2088537A00B93F50 /* thermostat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thermostat.png; sourceTree = "<group>"; };
-		C46F0A542088608500B93F50 /* Hitbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hitbox.swift; sourceTree = "<group>"; };
 		C48CDD31208F0EB800A57FAD /* TrayComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrayComponent.swift; sourceTree = "<group>"; };
 		C4B973B62093D26F0026223E /* Flag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flag.swift; sourceTree = "<group>"; };
 		C4B973B82093D27B0026223E /* Peg.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Peg.swift; sourceTree = "<group>"; };
@@ -81,6 +81,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C4285F7A209ABED000436541 /* StaticSprites */ = {
+			isa = PBXGroup;
+			children = (
+				C46F0A472088535E00B93F50 /* WallSprite.swift */,
+				C4526F57208978C5004656B2 /* PlayButton.swift */,
+				C42B973F208EEC59003A1FD2 /* EditButton.swift */,
+				C42B9741208EFB1F003A1FD2 /* UndoButton.swift */,
+				C4526F5B208C2FD0004656B2 /* Tray.swift */,
+				C48CDD31208F0EB800A57FAD /* TrayComponent.swift */,
+			);
+			path = StaticSprites;
+			sourceTree = "<group>";
+		};
+		C4285F7B209ABEE400436541 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				C4FEA84A208FDCD3008E5F1B /* Ball.swift */,
+				C4FEA84C208FDCE4008E5F1B /* CircleBumper.swift */,
+				C4FEA84E208FDCF3008E5F1B /* TriangleBumper.swift */,
+				C4285F78209A80B900436541 /* TriangleBumperL.swift */,
+				C4B973B62093D26F0026223E /* Flag.swift */,
+				C4B973B82093D27B0026223E /* Peg.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		C4285F7C209ABEFC00436541 /* Flippers */ = {
+			isa = PBXGroup;
+			children = (
+				C4B973BA20941DAA0026223E /* LeftPaddle.swift */,
+				C4B973BC20941DB40026223E /* RightPaddle.swift */,
+			);
+			path = Flippers;
+			sourceTree = "<group>";
+		};
 		C46F0A1F2088522800B93F50 = {
 			isa = PBXGroup;
 			children = (
@@ -152,7 +187,6 @@
 			isa = PBXGroup;
 			children = (
 				C46F0A3D208852C300B93F50 /* Model.swift */,
-				C46F0A542088608500B93F50 /* Hitbox.swift */,
 			);
 			path = "Model Stuff";
 			sourceTree = "<group>";
@@ -162,19 +196,9 @@
 			children = (
 				C46F0A452088534A00B93F50 /* Sprite.swift */,
 				C46F0A432088533100B93F50 /* GameScreen.swift */,
-				C46F0A472088535E00B93F50 /* WallSprite.swift */,
-				C4526F57208978C5004656B2 /* PlayButton.swift */,
-				C42B973F208EEC59003A1FD2 /* EditButton.swift */,
-				C42B9741208EFB1F003A1FD2 /* UndoButton.swift */,
-				C4526F5B208C2FD0004656B2 /* Tray.swift */,
-				C48CDD31208F0EB800A57FAD /* TrayComponent.swift */,
-				C4FEA84A208FDCD3008E5F1B /* Ball.swift */,
-				C4FEA84C208FDCE4008E5F1B /* CircleBumper.swift */,
-				C4FEA84E208FDCF3008E5F1B /* TriangleBumper.swift */,
-				C4B973B62093D26F0026223E /* Flag.swift */,
-				C4B973B82093D27B0026223E /* Peg.swift */,
-				C4B973BA20941DAA0026223E /* LeftPaddle.swift */,
-				C4B973BC20941DB40026223E /* RightPaddle.swift */,
+				C4285F7A209ABED000436541 /* StaticSprites */,
+				C4285F7B209ABEE400436541 /* Components */,
+				C4285F7C209ABEFC00436541 /* Flippers */,
 				C4B973BF2095058A0026223E /* Plunger.swift */,
 			);
 			path = "Sprite Stuff";
@@ -274,8 +298,8 @@
 				C46F0A482088535E00B93F50 /* WallSprite.swift in Sources */,
 				C4FEA84D208FDCE4008E5F1B /* CircleBumper.swift in Sources */,
 				C48CDD32208F0EB800A57FAD /* TrayComponent.swift in Sources */,
+				C4285F79209A80B900436541 /* TriangleBumperL.swift in Sources */,
 				C42B9740208EEC59003A1FD2 /* EditButton.swift in Sources */,
-				C46F0A552088608500B93F50 /* Hitbox.swift in Sources */,
 				C46F0A442088533100B93F50 /* GameScreen.swift in Sources */,
 				C4B973BB20941DAA0026223E /* LeftPaddle.swift in Sources */,
 				C4B973C02095058A0026223E /* Plunger.swift in Sources */,
