@@ -1,5 +1,5 @@
 //
-//  Ball.swift
+//  CircleBumper.swift
 //  Pinball_Maker_Final
 //
 //  Created by Chasen Chamberlain on 4/24/18.
@@ -8,7 +8,7 @@
 
 import GLKit
 
-class Ball: Sprite{
+class CircleBumper: Sprite{
     override init() {
         super.init()
         self.quad = [
@@ -29,13 +29,12 @@ class Ball: Sprite{
             1.0, 0.0, // texture
         ]
         let verts: [Float] = self.getPositionVertices()
-        self.width = 16.0
-        self.height = 16.0
+        self.width = 32.0
+        self.height = 32.0
         self.setQuadVertices()
         
-        self.setTextureVertices(x: 595, y: 0, w: 16, h: 16)
+        self.setTextureVertices(x: 116, y: 0, w: 32, h: 32)
         
         self.vertices = verts
-        print(" ") // helps readability
     }
 }

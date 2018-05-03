@@ -1,19 +1,16 @@
 //
-//  TriangleBumper.swift
+//  TriangleBumperL.swift
 //  Pinball_Maker_Final
 //
-//  Created by Chasen Chamberlain on 4/24/18.
+//  Created by Chasen Chamberlain on 5/2/18.
 //  Copyright © 2018 Chasen Chamberlain. All rights reserved.
 //
 
 import GLKit
 
-import GLKit
-
-class TriangleBumper: Sprite{
+class TriangleBumperL: Sprite{
     override init() {
         super.init()
-        //        super.init(image: UIImage(named: "thermostat")!)
         self.quad = [
             0.0, 0.0,
             1.0, 0.0, 1.0, 0.0, // color
@@ -36,9 +33,8 @@ class TriangleBumper: Sprite{
         self.height = 32.0
         self.setQuadVertices()
         
-        self.setTextureVertices(x: 148, y: 0, w: 32, h: 32)
+        self.setTextureVertices(x: 208, y: 0, w: 32, h: 32)
         
         self.vertices = verts
-        print(" ") // helps readability
     }
 }

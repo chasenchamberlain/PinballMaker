@@ -24,8 +24,8 @@ class Sprite {
     internal var rotationY : Float = 0.0
     internal var rotationZ : Float = 0.0
     
-    internal var scaleX : Float = 1.0 { didSet{self.computeWidth()} }
-    internal var scaleY : Float = 1.0 { didSet{self.computeHeight()} }
+    internal var scaleX : Float = 1.0
+    internal var scaleY : Float = 1.0
     internal var scale: Float = 1.0
     
     internal var width: Float = 0.0
@@ -42,15 +42,9 @@ class Sprite {
         modelMatrix = GLKMatrix4Rotate(modelMatrix, self.rotationY, 0, 1, 0)
         modelMatrix = GLKMatrix4Rotate(modelMatrix, GLKMathDegreesToRadians(self.rotationZ), 1, 1, 1)
         modelMatrix = GLKMatrix4Scale(modelMatrix, self.scaleX, self.scaleY, 0)
-//        modelMatrix = GLKMatrix4Translate(modelMatrix, self.positionX, self.positionY, -0)
-
-
-//        modelMatrix = GLKMatrix4Translate(modelMatrix, 0, 0, 0)
 
         return modelMatrix
     }
-    
-    //    var name: String
     
     internal var texture: GLKTextureInfo?
     
@@ -60,29 +54,8 @@ class Sprite {
     {
         self.image = UIImage(named: "Framed_Sprites")!
         
-        //        self.name = name
         texture = try? GLKTextureLoader.texture(with: self.image.cgImage!, options: nil)
-        computeVolumn()
         Sprite.setup()
-    }
-    
-    fileprivate func computeVolumn() {
-        self.computeWidth()
-        self.computeHeight()
-    }
-    
-    fileprivate func computeWidth() {
-        let xs = self.vertices.map{ $0 }
-        let minX = xs.min() ?? 0
-        let maxX = xs.max() ?? 0
-        self.width = (maxX - minX) * self.scaleX * self.scale
-    }
-    
-    fileprivate func computeHeight() {
-        let ys = self.vertices.map{ $0 }
-        let minY = ys.min() ?? 0
-        let maxY = ys.max() ?? 0
-        self.height = maxY - minY * self.scaleY * self.scale
     }
     
     private static func setup()
@@ -175,8 +148,6 @@ class Sprite {
     
     internal func draw()
     {
-        //        glViewport(bounds.width, y: Glint, width: GLsizei, height: GLsizei) This does something with keeping a square on screen I guess
-        
         //glViewport(0, 0, GLsizei(375 * 2), GLsizei(667 * 2))
         
         // position
@@ -187,11 +158,7 @@ class Sprite {
         
         // texturePos
         glVertexAttribPointer(2, 2, GLenum(GL_FLOAT), GLboolean(GL_FALSE), 32, UnsafePointer(quad) + 6)
-        
-        //        glUniform2f(glGetUniformLocation(Sprite.program, "translate"), positionX, positionY)
-        //        glUniform2f(glGetUniformLocation(program, "scale"), scaleX, scaleY)
-        //        glUniform1f(glGetUniformLocation(program, "rotation"), roation)
-        
+
         // This matrix call is meant to make things more efficent
         glUniformMatrix4fv(glGetUniformLocation(Sprite.program, "modelView"), 1, 0, modelViewMatrix.array)
         glTexParameterf(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MAG_FILTER), GLfloat(GL_NEAREST));
@@ -202,31 +169,6 @@ class Sprite {
         glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0, 4)
         
         
-    }
-    
-    // Bounding box for collision/clicky things
-    internal func boundingBoxWithModelViewMatrix() -> CGRect {
-//        let modelViewMatrix = GLKMatrix4Multiply(parenetModelViewMatrix, self.modelViewMatrix)
-    
-//        self.setQuadVertices()
-        let posverts = getPositionVertices()
-        
-        let dumbX = UIScreen.main.bounds.width * (CGFloat(self.width)/UIScreen.main.bounds.width)
-        let dumbY = UIScreen.main.bounds.height * -(CGFloat(self.height)/UIScreen.main.bounds.height)
-        let xPix: CGFloat = (dumbX + UIScreen.main.bounds.width - 1)/2
-        let yPix: CGFloat = (dumbY + UIScreen.main.bounds.height + 1)/2
-        let preLowerLeft = GLKVector4Make(self.width, self.height, 0, 1)
-        let lowerLeft = GLKMatrix4MultiplyVector4(modelViewMatrix, preLowerLeft)
-        
-        let preUpperRight = GLKVector4Make(self.width, self.height, 0, 1)
-        let upperRight = GLKMatrix4MultiplyVector4(modelViewMatrix, preUpperRight)
-        
-        let boundingBox = CGRect(x: xPix,
-                                 y: yPix,
-                                 width: CGFloat(self.width),
-                                 height: CGFloat(self.height))
-        print("\(self.quad)")
-        return boundingBox
     }
     
     // Gives the position points of quad to assist in calculations of a hitbox
@@ -315,21 +257,7 @@ class Sprite {
     }
     
     public func setHitbox(x: CGFloat, y: CGFloat){
-        // xPix = (w / 2)(x + 1)  OR xPix = 1/2 (w x + w - 1)
-        // yPix = (h - h * x) / 2 OR yPix = 1/2 (h y + h - 1) OR 1/2 (h (-y) + h + 1)
-        
-//        let part1Width = (Float(UIScreen.main.bounds.width) * self.positionX)
-//        let xPix = (part1Width + (Float(UIScreen.main.bounds.width) - 1.0)) / 4
 
-//        let part2Height = (Float(UIScreen.main.bounds.height)) * (-1.0 * self.positionY)
-//        let yPix = (part2Height + (Float(UIScreen.main.bounds.height) + 1.0)) / 4
-        
-//        let xPix = ((Float(UIScreen.main.bounds.width) / self.width) * self.positionX) / 2
-//        let yPix = (Float(UIScreen.main.bounds.height) / self.height  * self.positionY) / 2
-
-//        let xPix = (self.positionX + 1) * ((Float(UIScreen.main.bounds.width)/2))
-//        let yPix = (self.positionY + 1) * ((Float(UIScreen.main.bounds.height)/2))
-        
         self.hitbox = CGRect(x: x, y: y, width: CGFloat(self.width), height: CGFloat(self.height))
     }
 }
