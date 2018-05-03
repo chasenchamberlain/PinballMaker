@@ -1,5 +1,5 @@
 //
-//  Flag.swift
+//  LeftPaddle.swift
 //  Pinball_Maker_Final
 //
 //  Created by Chasen Chamberlain on 4/27/18.
@@ -8,7 +8,7 @@
 
 import GLKit
 
-class Flag: Sprite{
+class LeftPaddle: Sprite{
     override init() {
         super.init()
         //        super.init(image: UIImage(named: "thermostat")!)
@@ -30,13 +30,12 @@ class Flag: Sprite{
             1.0, 0.0, // texture
         ]
         let verts: [Float] = self.getPositionVertices()
-        self.width = 32.0
+        self.width = 160.0
         self.height = 32.0
         self.setQuadVertices()
         
-        self.setTextureVertices(x: 403, y: 1, w: 32, h: 29)
+        self.setTextureVertices(x: 832, y: 0, w: 160, h: 32)
         
         self.vertices = verts
-        print(" ") // helps readability
     }
 }

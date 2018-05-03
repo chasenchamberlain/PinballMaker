@@ -1,18 +1,20 @@
 //
-//  SquareSprite.swift
-//  Project-Final-Pinball-Maker
+//  Flag.swift
+//  Pinball_Maker_Final
 //
-//  Created by Chasen Chamberlain on 4/15/18.
+//  Created by Chasen Chamberlain on 4/27/18.
 //  Copyright © 2018 Chasen Chamberlain. All rights reserved.
 //
 
 import GLKit
 
-class WallSprite: Sprite
-{
+class Flag: Sprite{
+    
+    private var textures: [Float] = [403, 435, 467, 499, 531, 563]
+    private var index = 1
+    var deleteMe = false
     override init() {
         super.init()
-//        super.init(image: UIImage(named: "thermostat")!)
         self.quad = [
             0.0, 0.0,
             1.0, 0.0, 1.0, 0.0, // color
@@ -32,13 +34,24 @@ class WallSprite: Sprite
         ]
         let verts: [Float] = self.getPositionVertices()
         self.width = 32.0
-        self.height = 32.0
+        self.height = 29.0
         self.setQuadVertices()
         
-        self.setTextureVertices(x: 0, y: 0, w: 32, h: 32)
-
+        self.setTextureVertices(x: 403, y: 1, w: 32, h: 29)
         
         self.vertices = verts
-        print(" ") // helps readability
+    }
+    
+    func nextTexture()
+    {
+        if(index < textures.count)
+        {
+            self.setTextureVertices(x: textures[index], y: 1, w: 32, h: 29)
+            index += 1
+        }
+        else
+        {
+            deleteMe = true
+        }
     }
 }

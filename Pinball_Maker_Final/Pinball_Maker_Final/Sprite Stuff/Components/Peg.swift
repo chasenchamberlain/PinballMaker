@@ -1,5 +1,5 @@
 //
-//  RightPaddle.swift
+//  Peg.swift
 //  Pinball_Maker_Final
 //
 //  Created by Chasen Chamberlain on 4/27/18.
@@ -8,7 +8,7 @@
 
 import GLKit
 
-class RightPaddle: Sprite{
+class Peg: Sprite{
     override init() {
         super.init()
         //        super.init(image: UIImage(named: "thermostat")!)
@@ -30,12 +30,12 @@ class RightPaddle: Sprite{
             1.0, 0.0, // texture
         ]
         let verts: [Float] = self.getPositionVertices()
-        self.width = 160.0
+        self.width = 16.0
         self.height = 32.0
         self.setQuadVertices()
-        self.setTextureVertices(x: 672, y: 0, w: 160, h: 32)
+        
+        self.setTextureVertices(x: 180, y: 0, w: 16, h: 32)
         
         self.vertices = verts
-        print(" ") // helps readability
     }
 }
